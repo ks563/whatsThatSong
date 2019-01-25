@@ -1,9 +1,9 @@
 //An array that will be populated by the songs returned from the getSongByLyrics function
 var songs = [];
 //A function that takes a lyric sample as an argument and calls the audd api to get full songs
-var getSongByLyrics = function(lyricSample){
+var getSongByLyrics = function(query){
     $.ajax({
-        url: "https://api.audd.io/findLyrics/?q=" + lyricSample,
+        url: "https://api.audd.io/findLyrics/?api_token=ae85fce702c0f38597547a5b49958fac&q=" + query,
         method: "GET"
     }).then(function (response) {
         //resetting the songs array
@@ -12,24 +12,27 @@ var getSongByLyrics = function(lyricSample){
         //Grabbing 5 songs from the api call
         for (i = 0; i < 5; i++){
             //assigning a song object with the keys
-            var song = {artist: "", title: "",lyrics: "" , mediaString: "", mediaArray: [], spotify: null, itunes: null};
+            var song = {artist: "", title: "",lyrics: "" , mediaArr: [], spotify: null, itunes: null};
             //assigning the proper values to the keys
             song.artist = response.result[i].artist;
             song.title = response.result[i].title;
             song.lyrics = response.result[i].lyrics;
-            
-            console.log(response.result[i].media, " ", typeof response.result[i].media);
-            song.mediaString = response.result[i].media;
-            song.mediaArray = song.mediaString.split("},");
 
-            song.altMediaString = JSON.parse(response.result[i].media);
+            song.mediaArr = JSON.parse(response.result[i].media);
 
-
-            song.spotify = response.result[i].media[2];
-            song.itunes = response.result[i].media[1];
             //adding the song object to the songs array
             songs.push(song);
         }
         console.log(songs);
     });
 }
+$(document).on("click","#submit",function(event){
+    event.preventDefault();
+    var lyricSample = $("#inputLyrics").val();
+    console.log(lyricSample);
+    lyricSample= lyricSample.trim();
+
+    if(lyricSample !=""){
+        getSongByLyrics(lyricSample);
+    }
+})
