@@ -17,9 +17,14 @@ var getSongByLyrics = function(lyricSample){
             song.artist = response.result[i].artist;
             song.title = response.result[i].title;
             song.lyrics = response.result[i].lyrics;
+            
+            console.log(response.result[i].media, " ", typeof response.result[i].media);
             song.mediaString = response.result[i].media;
             song.mediaArray = song.mediaString.split("},");
-            song.altMediaString = response.result[i].media[1,(response.result[i].media-1)];
+
+            song.altMediaString = JSON.parse(response.result[i].media);
+
+
             song.spotify = response.result[i].media[2];
             song.itunes = response.result[i].media[1];
             //adding the song object to the songs array
