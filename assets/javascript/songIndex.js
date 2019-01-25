@@ -12,11 +12,15 @@ var getSongByLyrics = function(lyricSample){
         //Grabbing 5 songs from the api call
         for (i = 0; i < 5; i++){
             //assigning a song object with the keys
-            var song = {artist: "", title: "",lyrics: "" };
+            var song = {artist: "", title: "",lyrics: "" , mediaString: "", mediaArray: [], spotify: null, itunes: null};
             //assigning the proper values to the keys
             song.artist = response.result[i].artist;
             song.title = response.result[i].title;
             song.lyrics = response.result[i].lyrics;
+            song.mediaString = response.result[i].media;
+            song.mediaArray = song.mediaString.split("},");
+            song.spotify = response.result[i].media[2];
+            song.itunes = response.result[i].media[1];
             //adding the song object to the songs array
             songs.push(song);
         }
