@@ -1,3 +1,14 @@
 body{
     background-image: url(../images/tweed_@2X.png);
 }
+.jumboclass{
+    font-family: 'Monoton', cursive;
+    color: beige;
+    opacity: .75;
+    background:none;
+     
+}
+
+.queryFound {
+    background-color: yellow; 
+}
