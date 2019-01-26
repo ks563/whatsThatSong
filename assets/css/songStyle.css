@@ -16,3 +16,14 @@ body{
 .inputclass, .infoclass{
     font-family: 'Voltaire', sans-serif;
 }
+.song{
+    background-color: white;
+    border: 3px solid black;
+    border-radius: 15px;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.song:hover{
+    background-color: orange;
+}
