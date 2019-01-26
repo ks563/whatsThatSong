@@ -17,8 +17,10 @@ var getSongByLyrics = function(query){
             song.artist = response.result[i].artist;
             song.title = response.result[i].title;
             song.lyrics = response.result[i].lyrics;
-            song.lyrics.replace("[","<br>[");
-            song.lyrics.replace("]","]<br>");
+            console.log(typeof song.lyrics);
+            var openB = "["
+            song.lyrics = song.lyrics.replace(/\[/g,'<br>[');
+            song.lyrics = song.lyrics.replace(/\]/g,']<br>');
             console.log(song.lyrics);
 
             song.mediaArr = JSON.parse(response.result[i].media);
@@ -55,5 +57,5 @@ $(document).on("click",".song",function(){
     var ind = $(this).attr("data-ind");
     $("#songresults").empty();
     var lyricDiv = $("<div class=lyricDiv><h6>Artist: " + songs[ind].artist + "</h6><h6> Song: " + songs[ind].title + "</h6><p>" + songs[ind].lyrics + "</p>");
-    $("#songresults").append(lyricDiv);
+    $("#songresults").html(lyricDiv);
 })
