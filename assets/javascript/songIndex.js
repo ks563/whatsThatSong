@@ -21,9 +21,11 @@ var getSongByLyrics = function(query){
             var openB = "["
             song.lyrics = song.lyrics.replace(/\[/g,'<br>[');
             song.lyrics = song.lyrics.replace(/\]/g,']<br>');
+            // var regex = /"" + query + ""/g
+            song.lyrics = song.lyrics.replace(new RegExp(query, 'g'), "<span class=queryFound>" + query + "</span>");
             console.log(song.lyrics);
 
-            song.mediaArr = JSON.parse(response.result[i].media);
+            // song.mediaArr = JSON.parse(response.result[i].media);
 
             //adding the song object to the songs array
             songs.push(song);
