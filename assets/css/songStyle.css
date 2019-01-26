@@ -23,3 +23,7 @@ body{
     margin-bottom: 5px;
     text-align: center;
 }
+
+.song:hover{
+    background-color: orange;
+}
