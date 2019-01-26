@@ -17,6 +17,9 @@ var getSongByLyrics = function(query){
             song.artist = response.result[i].artist;
             song.title = response.result[i].title;
             song.lyrics = response.result[i].lyrics;
+            song.lyrics.replace("[","<br>[");
+            song.lyrics.replace("]","]<br>");
+            console.log(song.lyrics);
 
             song.mediaArr = JSON.parse(response.result[i].media);
 
@@ -28,6 +31,7 @@ var getSongByLyrics = function(query){
     });
 }
 var resultsToDisplay = function(){
+    $("#songresults").empty();
     console.log("i have been called");
     for (j = 0; j < songs.length; j++){
         var songDiv = $("<div class='song' data-ind='"+ j + "'>Artist: " + songs[j].artist + " Song: " + songs[j].title + "</div>");
@@ -45,4 +49,11 @@ $(document).on("click","#submit",function(event){
         getSongByLyrics(lyricSample);
         
     }
+});
+
+$(document).on("click",".song",function(){
+    var ind = $(this).attr("data-ind");
+    $("#songresults").empty();
+    var lyricDiv = $("<div class=lyricDiv><h6>Artist: " + songs[ind].artist + "</h6><h6> Song: " + songs[ind].title + "</h6><p>" + songs[ind].lyrics + "</p>");
+    $("#songresults").append(lyricDiv);
 })
