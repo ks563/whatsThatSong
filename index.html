@@ -27,49 +27,50 @@
 </head>
 
 <body>
-    
+     <!-- Jumbotron workspace -->
     <div class="jumbotron p-3 p-md-5 rounded bg-none jumboclass">
         <h1 class="text-center display-1 ">What's That Song?!</h1>
-        
     </div>
 
-   <div class="container"> 
-     <div class="row mb-2">
-        <div class="col-md-12">
-            <div class="card flex-md-row mb-4 shadow-sm h-md-250 ">
-                <div class="card-body d-flex flex-column align-items-start">
-                    <h3 class="mb-0">
-                        <a class="text-dark" href="#">Post Lyrics Here!</a>
-                    </h3>
-                    <form>
-                        <!-- Search Text Box -->
-                        <input id="inputLyrics" class="form-control" type="text" placeholder="Search" aria-label="Search">
-                        <!-- Search Button -->
-                        <input id="submit" type="submit" class="btn-warning mt-3 btn btn-primary btn-lg btn-block" value="GIVE IT TO ME">
-                    
-                    </form>
+<!-- Container for input text  -->
+<div class="container border border-info mb-5 rounded" style="background-color: aliceblue">
+  <div class="row mt-1 p-3">
+    <div class="col-sm-12 col-lg-6">
+      <h3>Post Lyics Here!</h3>
+    </div>
+  </div>
 
-                </div>
-
-            </div>
-        </div>
+    <div class="row p-2">
+      <div class="col-12">
+              <!-- Search Text Box -->
+              <input id="inputLyrics" class="form-control" type="text" placeholder="Search" aria-label="Search">      
       </div>
+    </div>
+
+    <div class="row p-2">
+      <div class="col-lg-4 col-sm-12 mb-3">
+         <!-- Search Button -->
+         <input id="submit" type="submit" class="btn-info mt-3 btn btn-primary btn-lg btn-block" value="GIVE IT TO ME!">
+      </div>
+    </div>
+
+</div>
 
 <!-- container for search results -->
-<div class="container border border-info" style="background-color: aliceblue">
+<div class="container border border-info rounded" style="background-color: aliceblue">
   <div class="row mt-1 p-3">
     <div class="col-lg-6 col-sm-12" style="font-size: 32px;">
         Search Results!
     </div>
     <div class="col-3"></div>
     <div class="col-sm-3 mt-1">
-      <button type="button" class="btn btn-info">Back to results</button>
+      <button id="back-to-results" type="button" class="btn btn-info" hidden>Back to results</button>
     </div>
     
   </div>
   <div class="row p-3">
     <div class="col-12 mt-3">
-      <p id="songresults">Results show up here!</p>
+      <div id="songresults">Results show up here!</div>
     </div>
     
   </div>
