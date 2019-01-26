@@ -12,3 +12,7 @@ body{
 .queryFound {
     background-color: yellow; 
 }
+
+.inputclass, .infoclass{
+    font-family: 'Voltaire', sans-serif;
+}
