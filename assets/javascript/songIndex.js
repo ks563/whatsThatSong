@@ -26,6 +26,11 @@ var getSongByLyrics = function(query){
         console.log(songs);
     });
 }
+var resultsToDisplay = function(){
+    for (j = 0; j < 5; j++){
+        
+    }
+}
 $(document).on("click","#submit",function(event){
     event.preventDefault();
     var lyricSample = $("#inputLyrics").val();
