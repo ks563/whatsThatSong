@@ -60,4 +60,10 @@ $(document).on("click",".song",function(){
     $("#songresults").empty();
     var lyricDiv = $("<div class=lyricDiv><h6>Artist: " + songs[ind].artist + "</h6><h6> Song: " + songs[ind].title + "</h6><p>" + songs[ind].lyrics + "</p>");
     $("#songresults").html(lyricDiv);
-})
+    $("#back-to-results").attr("style","display: visible");
+});
+
+$(document).on("click","#back-to-results", function(){
+    $("#back-to-results").attr("style","display: none");
+    resultsToDisplay();
+});
