@@ -24,11 +24,15 @@ var getSongByLyrics = function(query){
             songs.push(song);
         }
         console.log(songs);
+        resultsToDisplay();
     });
 }
 var resultsToDisplay = function(){
-    for (j = 0; j < 5; j++){
-        
+    console.log("i have been called");
+    for (j = 0; j < songs.length; j++){
+        var songDiv = $("<div class='song' data-ind='"+ j + "'>Artist: " + songs[j].artist + " Song: " + songs[j].title + "</div>");
+        console.log(songDiv);
+        $("#songresults").append(songDiv);
     }
 }
 $(document).on("click","#submit",function(event){
@@ -39,5 +43,6 @@ $(document).on("click","#submit",function(event){
 
     if(lyricSample !=""){
         getSongByLyrics(lyricSample);
+        
     }
 })
