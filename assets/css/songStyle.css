@@ -1,12 +1,11 @@
 body{
     background-image: url(../images/tweed_@2X.png);
+    background-repeat: repeat;
 }
 .jumboclass{
     font-family: 'Monoton', cursive;
     color: #fef7ed;
-    opacity: .75;
-    background:none;
-     
+    background:none;    
 }
 
 .search-container {
@@ -30,9 +29,14 @@ body{
 }
 
 .song:hover{
-    background-color: orange;
+    background-color: #a5fad6;
 }
 
 .queryFound {
-    background-color: yellow; 
+    background-color: #c9faa5;
+}
+
+.footer {
+    font-size: 24px;
+    color:#fef7ed;
 }
