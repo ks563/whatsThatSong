@@ -10,7 +10,12 @@ var spin = anime({
     loop: true,
 });
 
+$(".results-container").hide();
 
 $("#submit").click(function(){
-    $("#record-container").hide();
-  });
+    $(".record-container").hide();
+});
+  
+$("#submit").click(function(){
+    $(".results-container").show();
+});
