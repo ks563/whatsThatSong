@@ -2,99 +2,100 @@
 <html>
 
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- Dope Title -->
-    <title>Oh, What's That Song?</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Reset CSS -->
-    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/reset.css" />
-    <!-- Linking Bootstrap -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
-        crossorigin="anonymous">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
-        crossorigin="anonymous"></script>
-    <!-- Styling CSS -->
-    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/songStyle.css" />
-    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/animate.css" />
-    <!-- Linking JQuery -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <!-- linking anime.js -->
-    <script src= "https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js"> </script>
-    <!-- Font Links -->
-    <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Voltaire" rel="stylesheet">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!-- Dope Title -->
+  <title>Oh, What's That Song?</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Reset CSS -->
+  <link rel="stylesheet" type="text/css" media="screen" href="assets/css/reset.css" />
+  <!-- Linking Bootstrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+    crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+    crossorigin="anonymous"></script>
+  <!-- Styling CSS -->
+  <link rel="stylesheet" type="text/css" media="screen" href="assets/css/songStyle.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="assets/css/animate.css" />
+  <!-- Linking JQuery -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <!-- linking anime.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js"> </script>
+  <!-- Font Links -->
+  <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Voltaire" rel="stylesheet">
 
-    
+
 </head>
 
 <body>
 
-     <!-- Jumbotron workspace -->
-    <div class="jumbotron p-3 p-md-5 rounded bg-none jumboclass">
-        <h1 class="text-center display-1 ">What's That Song?!</h1>
-    </div>
+  <!-- Jumbotron workspace -->
+  <div class="jumbotron p-3 p-md-5 rounded bg-none jumboclass">
+    <h1 class="text-center display-1 ">What's That Song?!</h1>
+  </div>
 
-<!-- Container for input text  -->
-<div class="container border border-info mb-5 rounded inputclass" style="background-color: beige">
-  <div class="row mt-1 p-3">
-    <div class="col-sm-12 col-lg-6">
-      <h3>Post Lyics Here!</h3>
+  <!-- Animation space for record player -->
+  <div class="container record-container">
+    <div id="spinning-record">
+      <img src="assets/images/snow-patrol-run-remixes.png" alt="spinning record"
+        class="record">
+
     </div>
   </div>
 
+  <!-- Container for input text  -->
+  <div class="container search-container border border-info mb-5 rounded inputclass">
+    <div class="row mt-1 p-3">
+      <div class="col-sm-12 col-lg-6">
+        <h3>Search Lyics Here!</h3>
+      </div>
+    </div>
+
     <div class="row p-2">
       <div class="col-12">
-              <!-- Search Text Box -->
-              <input id="inputLyrics" class="form-control" type="text" placeholder="Search" aria-label="Search">      
+        <!-- Search Text Box -->
+        <input id="inputLyrics" class="form-control" type="text" placeholder="Search" aria-label="Search">
       </div>
     </div>
 
     <div class="row p-2">
       <div class="col-lg-4 col-sm-12 mb-3">
-         <!-- Search Button -->
-         <input id="submit" type="submit" class="btn-info mt-3 btn btn-dark btn-lg btn-block" value="GIVE IT TO ME!">
+        <!-- Search Button -->
+        <input id="submit" type="submit" class="btn-info mt-3 btn btn-dark btn-lg btn-block" value="GIVE IT TO ME!">
       </div>
     </div>
 
-</div>
+  </div>
 
-<!-- container for search results -->
-<div class="container border border-info rounded infoclass" style="background-color: beige">
-  <div class="row mt-1 p-3">
-    <div class="col-lg-6 col-sm-12" style="font-size: 32px;">
+  <!-- container for search results -->
+  <div class="container results-container border border-info rounded infoclass">
+    <div class="row mt-1 p-3">
+      <div class="col-lg-6 col-sm-12" style="font-size: 32px;">
         Search Results!
-    </div>
-    <div class="col-3"></div>
-    <div class="col-sm-3 mt-1">
-      <button id="back-to-results" type="button" class="btn btn-info" style="display: none;">Back to results</button>
-    </div>
-    
-  </div>
-  <div class="row p-3">
-    <div class="col-12 mt-3">
-      <div id="songresults">Results show up here!</div>
-    </div>
-      
-
-    <!-- Animation space for record player -->
-    <div class="row" id="record-container">
-      <div id="spinning-record">
-          <img src="assets/images/josie-and-the-pussycats-josie-and-the-pussycats-music-from-the-motion-picture.png" alt= "record" class="record">
-
       </div>
+      <div class="col-3"></div>
+      <div class="col-sm-3 mt-1">
+        <button id="back-to-results" type="button" class="btn btn-info" style="display: none;">Back to results</button>
+      </div>
+
     </div>
-    
+    <div class="row p-3">
+      <div class="col-12 mt-3">
+        <div id="songresults">Results show up here!</div>
+      </div>
+
+
+    </div>
+
   </div>
 
-</div>
-    
-    <!-- Login in HTML -->
-    <!-- =========================================================================== -->
-    
-    <!-- <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  <!-- Login in HTML -->
+  <!-- =========================================================================== -->
+
+  <!-- <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -108,21 +109,21 @@
           <div class="md-form mb-5">
             <i class="fas fa-envelope prefix grey-text"></i>
             <input type="email" id="defaultForm-email" class="form-control validate"> -->
-            <!-- E-mail text box -->
-            <!-- <label id="emaillogin" data-error="wrong" data-success="right" for="defaultForm-email">Your email</label>
+  <!-- E-mail text box -->
+  <!-- <label id="emaillogin" data-error="wrong" data-success="right" for="defaultForm-email">Your email</label>
           </div>
   
           <div class="md-form mb-4">
             <i class="fas fa-lock prefix grey-text"></i>
             <input type="password" id="defaultForm-pass" class="form-control validate"> -->
-            <!-- Password Text Box -->
-            <!-- <label id="passwordlogin"   data-error="wrong" data-success="right" for="defaultForm-pass">Your password</label>
+  <!-- Password Text Box -->
+  <!-- <label id="passwordlogin"   data-error="wrong" data-success="right" for="defaultForm-pass">Your password</label>
           </div>
   
         </div>
         <div class="modal-footer d-flex justify-content-center"> -->
-            <!-- Login Button -->
-          <!-- <button id="loginbutton" class="btn btn-default">Login</button>
+  <!-- Login Button -->
+  <!-- <button id="loginbutton" class="btn btn-default">Login</button>
         </div>
       </div>
     </div>
@@ -131,10 +132,10 @@
   <div class="text-center">
     <a href="" class="btn btn-default btn-rounded mb-4 text-white" data-toggle="modal" data-target="#modalLoginForm">LOGIN TO WHATS THAT SONG!</a>
   </div> -->
-    
-    <!-- Sign up HTML -->
-    
-    <!-- <div class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+
+  <!-- Sign up HTML -->
+
+  <!-- <div class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -148,27 +149,27 @@
         <div class="md-form mb-5">
           <i class="fas fa-user prefix grey-text"></i>
           <input type="text" id="orangeForm-name" class="form-control validate"> -->
-          <!-- Name Text Box -->
-          <!-- <label id="namesignup"   data-error="wrong" data-success="right" for="orangeForm-name">Your name</label>
+  <!-- Name Text Box -->
+  <!-- <label id="namesignup"   data-error="wrong" data-success="right" for="orangeForm-name">Your name</label>
         </div>
         <div class="md-form mb-5">
           <i class="fas fa-envelope prefix grey-text"></i>
           <input type="email" id="orangeForm-email" class="form-control validate"> -->
-          <!-- E-mail text box -->
-          <!-- <label id="emailsignup" data-error="wrong" data-success="right" for="orangeForm-email">Your email</label>
+  <!-- E-mail text box -->
+  <!-- <label id="emailsignup" data-error="wrong" data-success="right" for="orangeForm-email">Your email</label>
         </div>
 
         <div class="md-form mb-4">
           <i class="fas fa-lock prefix grey-text"></i>
           <input type="password" id="orangeForm-pass" class="form-control validate"> -->
-          <!-- Password Text Box -->
-          <!-- <label id="passlogin" data-error="wrong" data-success="right" for="orangeForm-pass">Your password</label>
+  <!-- Password Text Box -->
+  <!-- <label id="passlogin" data-error="wrong" data-success="right" for="orangeForm-pass">Your password</label>
         </div>
 
       </div>
       <div class="modal-footer d-flex justify-content-center"> -->
-          <!-- Sign up Button -->
-        <!-- <button id="signupbutton" class="btn btn-deep-orange">Sign Up!</button>
+  <!-- Sign up Button -->
+  <!-- <button id="signupbutton" class="btn btn-deep-orange">Sign Up!</button>
       </div>
     </div>
   </div>
@@ -179,21 +180,21 @@
 </div> -->
 
 
-<!-- Footer workspace -->
-    <footer class="footer mt-5 py-3">
+  <!-- Footer workspace -->
+  <footer class="footer mt-5 py-3">
 
-      <div class="container">
-        <div class="row text-center" style="color: white; font-size: 24px">
-          <div class="col-12 col-sm-12">
-           Let Name = Dope Productions 2019 &copy;
-          </div>
+    <div class="container">
+      <div class="row text-center" style="color: white; font-size: 24px">
+        <div class="col-12 col-sm-12">
+          Let Name = Dope Productions 2019 &copy;
         </div>
       </div>
-    </footer>
-    <!-- Javascript file -->
-    <script src="assets/javascript/songIndex.js"></script>
-    <!-- animate.js file-->
-    <script src="assets/javascript/animate.js"> </script>
+    </div>
+  </footer>
+  <!-- Javascript file -->
+  <script src="assets/javascript/songIndex.js"></script>
+  <!-- animate.js file-->
+  <script src="assets/javascript/animate.js"> </script>
 </body>
 
 </html>

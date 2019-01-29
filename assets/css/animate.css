@@ -1,0 +1,11 @@
+.record-container{
+    position: relative;
+    padding-bottom: 5%;
+
+}
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
