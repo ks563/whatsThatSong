@@ -36,3 +36,8 @@ body{
 .queryFound {
     background-color: yellow; 
 }
+
+.footer {
+    font-size: 24px;
+    color:#fef7ed;
+}
