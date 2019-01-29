@@ -25,7 +25,7 @@ var getSongByLyrics = function(query){
             song.lyrics = song.lyrics.replace(new RegExp(query, 'g'), "<span class=queryFound>" + query + "</span>");
             console.log(song.lyrics);
 
-            // song.mediaArr = JSON.parse(response.result[i].media);
+            song.mediaArr = JSON.parse(response.result[i].media);
 
             //adding the song object to the songs array
             songs.push(song);
@@ -43,6 +43,27 @@ var resultsToDisplay = function(){
         $("#songresults").append(songDiv);
     }
 }
+var spotifyPull = function(trackID){
+    // $.ajax({
+    //     url: "https://accounts.spotify.com/api/token?grant_type=client_credentials",
+    //     headers: {
+    //         'Authorization': 'Basic ' + "a42da72627694428a93be7c10a4b1eca:2b7798d898df4ddd92f549f0da7a11f1"
+    //     },
+    //     method: "POST"
+    // }).then(function (response){
+    //     console.log("token is: ", response);
+    // });
+
+    $.ajax({
+        url: "https://api.spotify.com/v1/tracks/" + trackID,
+        headers: {
+            'Authorization': 'Bearer ' + "BQAxKuhgyoYWOVjxsBo-g9zK14LBrzghFtYYVPHEQV5o72FiLfIZ-lUDXk_6pOXmuvGvGTIgmgI_wczd9QrwBCDmZHJEoMwgcV4t6qGPQSgAHdS4vsx7TP_3qfvRqqMyStlP_k023z5iOMqswYA3_w"
+        },
+        method: "GET"
+    }).then(function (response){
+        console.log(response);
+    });
+}
 $(document).on("click","#submit",function(event){
     event.preventDefault();
     var lyricSample = $("#inputLyrics").val();
@@ -58,6 +79,13 @@ $(document).on("click","#submit",function(event){
 $(document).on("click",".song",function(){
     var ind = $(this).attr("data-ind");
     $("#songresults").empty();
+    for (k = 0; k < songs[ind].mediaArr.length; k++)
+    {
+        if (songs[ind].mediaArr[k].provider == "spotify"){
+            var id = songs[ind].mediaArr[k].native_uri.substring(14);
+            spotifyPull(id);
+        }
+    }
     var lyricDiv = $("<div class=lyricDiv><h6>Artist: " + songs[ind].artist + "</h6><h6> Song: " + songs[ind].title + "</h6><p>" + songs[ind].lyrics + "</p>");
     $("#songresults").html(lyricDiv);
     $("#back-to-results").attr("style","display: visible");
