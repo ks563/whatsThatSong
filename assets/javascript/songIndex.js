@@ -1,4 +1,6 @@
 var userName;
+var firstRecord;
+var songsSaved;
 
 var config = {
     apiKey: "AIzaSyC5e4ymIF11OrkIB4nXEiJZ2dGJN09KTFU",
@@ -14,9 +16,9 @@ var database = firebase.database();
 
 var signup = function(email, password){
     firebase.auth().createUserWithEmailAndPassword(email, password);
-    var splicedEmail = email.substring(0, email.indexOf("."));
+    var splicedEmail = email.substring(0, email.indexOf("@"));
     var newUser = database.ref("/users").child(splicedEmail);
-    newUser.set(["no songs saved", "null"]);  
+    newUser.set({signedin: true, songsSaved: false});  
 }
 var signin = function(email, password){
     firebase.auth().signInWithEmailAndPassword(email, password);
@@ -24,20 +26,24 @@ var signin = function(email, password){
 var signout = function(){
     firebase.auth().signOut();
 }
+database.ref("/users/" + userName).on("value", function(snapshot){
+    songsSaved = snapshot.val().songsSaved;
+})
 //function that is called when the sign in state is changed
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
         var user = firebase.auth().currentUser
+
         userName = user.email
-        userName = userName.substring(0, userName.indexOf("."));
+        userName = userName.substring(0, userName.indexOf("@"));
         $("#view-saved").attr("style", "display: visible");
         console.log(userName);
     } else {
-      // No user is signed in.
+      database.ref("/users/" + userName).child("signedin").set(false);
     }
   });
 var saveSong = function(song){
-    var newSong =database.ref("/users/" + userName).child(song.title);
+    var newSong =database.ref("/users/" + userName).child("songsSaved").child(song.title + "-" + song.artist);
     newSong.set(song)
 }
 //An array that will be populated by the songs returned from the getSongByLyrics function
@@ -117,9 +123,9 @@ $(document).on("click","#submit",function(event){
         
     }
 });
-
+var ind;
 $(document).on("click",".song",function(){
-    var ind = $(this).attr("data-ind");
+    ind = $(this).attr("data-ind");
     $("#songresults").empty();
     for (k = 0; k < songs[ind].mediaArr.length; k++)
     {
@@ -139,3 +145,19 @@ $(document).on("click","#back-to-results", function(){
     $("#save-song").attr("style","display: none");
     resultsToDisplay();
 });
+
+$(document).on("click","#signupbutton",function(){
+    var em = $("#signup-email").val().trim();
+    var pass = $("#signup-pass").val().trim();
+    signup (em, pass);
+});
+
+$(document).on("click","#loginbutton",function(){
+    var em = $("#login-email").val().trim();
+    var pass = $("#login-pass").val().trim();
+    signin (em, pass);
+});
+
+$(document).on("click","#save-song", function(){
+    saveSong(songs[ind]);
+})
