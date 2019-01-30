@@ -8,6 +8,27 @@ body{
     background:none;    
 }
 
+.recordOne{
+    height: auto; 
+    width: 100%;
+    max-width: 350px; 
+    max-height: 350px;
+}
+
+.recordTwo{
+    height: auto; 
+    width: 100%; 
+    max-width: 350px; 
+    max-height: 350px;
+}
+
+.recordThree{
+    height: auto; 
+    width: 100%;
+    max-width: 350px; 
+    max-height: 350px;
+}
+
 .search-container {
     background-color: #fef7ed;
     border: solid;
