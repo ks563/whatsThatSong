@@ -1,3 +1,27 @@
+var config = {
+    apiKey: "AIzaSyC5e4ymIF11OrkIB4nXEiJZ2dGJN09KTFU",
+    authDomain: "whats-that-song-p1.firebaseapp.com",
+    databaseURL: "https://whats-that-song-p1.firebaseio.com",
+    projectId: "whats-that-song-p1",
+    storageBucket: "whats-that-song-p1.appspot.com",
+    messagingSenderId: "205305988183"
+  };
+firebase.initializeApp(config);
+
+var database = firebase.database();
+var signup = function(email, password){
+    firebase.auth().createUserWithEmailAndPassword(email, password);
+}
+var signin = function(email, password){
+    firebase.auth().signInWithEmailAndPassword(email, password);
+}
+firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      // User is signed in.
+    } else {
+      // No user is signed in.
+    }
+  });
 //An array that will be populated by the songs returned from the getSongByLyrics function
 var songs = [];
 //A function that takes a lyric sample as an argument and calls the audd api to get full songs
