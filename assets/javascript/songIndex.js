@@ -1,7 +1,8 @@
+//The client's user name
 var userName;
-var firstRecord;
+//an array so the client can access their saved songs
 var songsSaved =[];
-
+//initializing firebase
 var config = {
     apiKey: "AIzaSyC5e4ymIF11OrkIB4nXEiJZ2dGJN09KTFU",
     authDomain: "whats-that-song-p1.firebaseapp.com",
@@ -11,24 +12,29 @@ var config = {
     messagingSenderId: "205305988183"
   };
 firebase.initializeApp(config);
-
+//root of our database
 var database = firebase.database();
-
+//a function that will create a new user in firebase and give them a directory in the database 
 var signup = function(email, password){
     firebase.auth().createUserWithEmailAndPassword(email, password);
+    //the name of the directory and username will be the user's email address before the '@' sign
     var splicedEmail = email.substring(0, email.indexOf("@"));
     var newUser = database.ref("/users").child(splicedEmail);
+    //the user account is signed in and are given a directory for saved songs
     newUser.set({signedin: true, songsSaved: false});  
 }
+// a function that will sign in an existing user
 var signin = function(email, password){
     firebase.auth().signInWithEmailAndPassword(email, password);
 }
+// a function that will siginout the currently logged in user
 var signout = function(){
     firebase.auth().signOut();
 }
 
 //function that is called when the sign in state is changed
 firebase.auth().onAuthStateChanged(function(user) {
+    //the user is signed in
     if (user) {
         //grabbing all info about current user that is in the database
         var user = firebase.auth().currentUser
@@ -54,13 +60,18 @@ database.ref("/users").on("value", function (snapshot) {
 
     })
 })
+//a function that the client can use to save a song. 
 var saveSong = function(song){
+    //clearing the client's saved song array
     songsSaved = [];
+    //the new song is given a directory where its key value pairs will be saved (key value pairs come from the aud.io  api call stored in the client earlier)
     var newSong =database.ref("/users/" + userName).child("songsSaved").child(song.title + "-" + song.artist);
     newSong.set(song)
 }
+
 //An array that will be populated by the songs returned from the getSongByLyrics function
 var songs = [];
+
 //A function that takes a lyric sample as an argument and calls the audd api to get full songs
 var getSongByLyrics = function(query){
     $.ajax({
@@ -78,15 +89,21 @@ var getSongByLyrics = function(query){
             song.artist = response.result[i].artist;
             song.title = response.result[i].title;
             song.lyrics = response.result[i].lyrics;
-            console.log(typeof song.lyrics);
+    
+            //this is used to format the lyrics into a nicer form
             var openB = "["
             song.lyrics = song.lyrics.replace(/\[/g,'<br>[');
             song.lyrics = song.lyrics.replace(/\]/g,']<br>');
-            // var regex = /"" + query + ""/g
+            //this is used to highlight the lyric query in the returned lyrics where it shows up
             song.lyrics = song.lyrics.replace(new RegExp(query, 'g'), "<span class=queryFound>" + query + "</span>");
-            console.log(song.lyrics);
-
-            song.mediaArr = JSON.parse(response.result[i].media);
+            
+            try{
+                song.mediaArr = JSON.parse(response.result[i].media);
+            }
+            catch(err){
+                console.log(err.message);
+                song.mediaArr = "";
+            }
 
             //adding the song object to the songs array
             songs.push(song);
