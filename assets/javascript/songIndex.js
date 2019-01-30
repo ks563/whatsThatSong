@@ -1,5 +1,5 @@
 var userName;
-
+var firstRecord
 var config = {
     apiKey: "AIzaSyC5e4ymIF11OrkIB4nXEiJZ2dGJN09KTFU",
     authDomain: "whats-that-song-p1.firebaseapp.com",
@@ -16,7 +16,7 @@ var signup = function(email, password){
     firebase.auth().createUserWithEmailAndPassword(email, password);
     var splicedEmail = email.substring(0, email.indexOf("."));
     var newUser = database.ref("/users").child(splicedEmail);
-    newUser.set(["no songs saved", "null"]);  
+    newUser.set({signedin: true, songsSaved: false});  
 }
 var signin = function(email, password){
     firebase.auth().signInWithEmailAndPassword(email, password);
@@ -24,6 +24,9 @@ var signin = function(email, password){
 var signout = function(){
     firebase.auth().signOut();
 }
+database.ref("/users/" + userName).on("value", function(snapshot){
+
+})
 //function that is called when the sign in state is changed
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
@@ -33,7 +36,7 @@ firebase.auth().onAuthStateChanged(function(user) {
         $("#view-saved").attr("style", "display: visible");
         console.log(userName);
     } else {
-      // No user is signed in.
+      database.ref("/users/" + userName).child("signedin").set(false);
     }
   });
 var saveSong = function(song){
@@ -138,4 +141,16 @@ $(document).on("click","#back-to-results", function(){
     $("#back-to-results").attr("style","display: none");
     $("#save-song").attr("style","display: none");
     resultsToDisplay();
+});
+
+$(document).on("click","#signupbutton",function(){
+    var em = $("#signup-email").val().trim();
+    var pass = $("#signup-pass").val().trim();
+    signup (em, pass);
+});
+
+$(document).on("click","#loginbutton",function(){
+    var em = $("#login-email").val().trim();
+    var pass = $("#login-pass").val().trim();
+    signin (em, pass);
 });
