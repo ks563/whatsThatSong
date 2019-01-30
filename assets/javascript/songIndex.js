@@ -26,6 +26,7 @@ var signup = function(email, password){
 // a function that will sign in an existing user
 var signin = function(email, password){
     firebase.auth().signInWithEmailAndPassword(email, password);
+    
 }
 // a function that will siginout the currently logged in user
 var signout = function(){
@@ -45,6 +46,9 @@ firebase.auth().onAuthStateChanged(function(user) {
         $("#view-saved").attr("style", "display: visible");
         database.ref("/users/" + userName).child("signedin").set(true);
         console.log(userName);
+        //when the user is successfully signed in, we can close the modal
+        $("#modalRegisterForm").modal("hide");
+        $("#modalLoginForm").modal("hide");
     } else {
       database.ref("/users/" + userName).child("signedin").set(false);
     }
