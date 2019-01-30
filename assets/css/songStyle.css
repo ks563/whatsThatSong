@@ -60,6 +60,7 @@ body{
 
 .song:hover{
     background-color: #a5fad6;
+    cursor: pointer;
 }
 
 .queryFound {
