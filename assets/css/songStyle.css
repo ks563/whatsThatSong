@@ -2,9 +2,11 @@ body{
     background-image: url(../images/tweed_@2X.png);
     background-repeat: repeat;
 }
-.jumboclass{
+.jumbotron{
     font-family: 'Monoton', cursive;
+    font-size: 20em;
     color: #fef7ed;
+    text-align:center;
     background:none;    
 }
 
@@ -65,6 +67,7 @@ body{
 }
 
 .footer {
-    font-size: 24px;
+    font-size: 1em;
     color:#fef7ed;
 }
+
