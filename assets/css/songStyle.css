@@ -2,10 +2,33 @@ body{
     background-image: url(../images/tweed_@2X.png);
     background-repeat: repeat;
 }
-.jumboclass{
+.jumbotron{
     font-family: 'Monoton', cursive;
+    font-size: 20em;
     color: #fef7ed;
+    text-align:center;
     background:none;    
+}
+
+.recordOne{
+    height: auto; 
+    width: 100%;
+    max-width: 350px; 
+    max-height: 350px;
+}
+
+.recordTwo{
+    height: auto; 
+    width: 100%; 
+    max-width: 350px; 
+    max-height: 350px;
+}
+
+.recordThree{
+    height: auto; 
+    width: 100%;
+    max-width: 350px; 
+    max-height: 350px;
 }
 
 .search-container {
@@ -44,6 +67,7 @@ body{
 }
 
 .footer {
-    font-size: 24px;
+    font-size: 1em;
     color:#fef7ed;
 }
+

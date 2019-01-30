@@ -7,6 +7,7 @@
   <!-- Dope Title -->
   <title>Oh, What's That Song?</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <!-- Reset CSS -->
   <link rel="stylesheet" type="text/css" media="screen" href="assets/css/reset.css" /> 
   <!-- Linking JQuery -->
@@ -18,10 +19,8 @@
     crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
     crossorigin="anonymous"></script>
-  <!-- Styling CSS -->
-  <link rel="stylesheet" type="text/css" media="screen" href="assets/css/songStyle.css" />
+x  <link rel="stylesheet" type="text/css" media="screen" href="assets/css/songStyle.css" />
   <link rel="stylesheet" type="text/css" media="screen" href="assets/css/animate.css" />
-
   <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/5.8.1/firebase.js"></script>
   <!-- linking anime.js -->
@@ -36,25 +35,29 @@
 <body>
 
   <!-- Jumbotron workspace -->
-  <div class="jumbotron p-3 p-md-5 rounded jumboclass">
-    <h1 class="text-center display-1 ">What's That Song?!</h1>
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4">What's That Song?!</h1>
+    </div>
   </div>
 
   <!-- Animation space for record player -->
   <div class="container record-container">
     <div class="row" id="spinning-record">
-      <div class="col-3">
+      <div class="col-4">
+          <img src="assets/images/snow-patrol-run-remixes.png" alt="spinning record" class="recordOne img-fluid">
       </div>
-      <div class="col-3">
-        <img src="assets/images/snow-patrol-run-remixes.png" alt="spinning record" class="record">
+      <div class="col-4">
+        <img src="assets/images/snow-patrol-run-remixes.png" alt="spinning record" class="recordTwo img-fluid">
         </div>
-      <div class="col-3">
+      <div class="col-4">
+          <img src="assets/images/snow-patrol-run-remixes.png" alt="spinning record" class="recordThree img-fluid">
       </div>
     </div>
   </div>
 
   <!-- Container for input text  -->
-  <div class="container search-container border border-info mb-5 rounded inputclass">
+  <div class="container search-container mb-5 rounded inputclass">
     <div class="row mt-1 p-3">
       <div class="col-sm-12 col-lg-6">
         <h3>Search Lyics Here!</h3>
@@ -80,7 +83,7 @@
   <!-- container for search results -->
   <div class="container results-container rounded infoclass">
     <div class="row mt-1 p-3">
-      <div class="col-lg-6 col-sm-12" style="font-size: 32px;">
+      <div class="col-lg-6 col-sm-12">
         Search Results!
       </div>
       <div class="col-3"></div>
@@ -118,6 +121,7 @@
             <input type="email" id="defaultForm-email" class="form-control validate">
 
 
+
   <!-- E-mail text box -->
   <label id="emaillogin" data-error="wrong" data-success="right" for="defaultForm-email">Your email</label>
           </div>
@@ -127,13 +131,12 @@
             <input type="password" id="defaultForm-pass" class="form-control validate">
 
 
+
   <!-- Password Text Box -->
   <label id="passwordlogin"   data-error="wrong" data-success="right" for="defaultForm-pass">Your password</label>
           </div>
-  
         </div>
         <div class="modal-footer d-flex justify-content-center">
-
 
   <!-- Login Button -->
   <button id="loginbutton" class="btn btn-default">Login</button>
@@ -176,7 +179,6 @@
   <!-- E-mail text box -->
   <label id="emailsignup" data-error="wrong" data-success="right" for="orangeForm-email">Your email</label>
         </div>
-
         <div class="md-form mb-2">
           <i class="fas fa-lock prefix grey-text"></i>
           <input type="password" id="orangeForm-pass" class="form-control validate">
@@ -187,8 +189,7 @@
         </div>
 
       </div>
-      <div class="modal-footer d-flex justify-content-center">
-
+      <div class="modal-footer d-flex justify-content-center"> 
 
   <!-- Sign up Button -->
   <button id="signupbutton" class="btn btn-deep-orange">Sign Up!</button>
@@ -196,13 +197,12 @@
     </div>
   </div>
 </div>
-
 <div class="text-center">
   <a href="" class="btn btn-default btn-rounded mb-2 text-white" data-toggle="modal" data-target="#modalRegisterForm">SIGN UP FOR WHATS THAT SONG!</a>
 </div>
 
 
-  <!-- Footer workspace -->
+<!-- Footer workspace -->
   <footer class="footer mt-5 py-3">
 
     <div class="container">
