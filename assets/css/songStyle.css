@@ -10,6 +10,8 @@ body{
 
 .search-container {
     background-color: #fef7ed;
+    border: solid;
+    border-width: thin;
 }
 
 .inputclass, .infoclass{
@@ -18,12 +20,17 @@ body{
 
 .results-container{
     background-color: #fef7ed;
+    font-size: 1.5em;
+    border-width: thin;
+    border: solid;
+    border: round;
 }
 
 .song{
     background-color: white;
     border: 3px solid black;
     border-radius: 15px;
+    border-width: thin;
     margin-bottom: 5px;
     text-align: center;
 }
