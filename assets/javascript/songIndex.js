@@ -1,3 +1,5 @@
+var userName;
+
 var config = {
     apiKey: "AIzaSyC5e4ymIF11OrkIB4nXEiJZ2dGJN09KTFU",
     authDomain: "whats-that-song-p1.firebaseapp.com",
@@ -9,20 +11,34 @@ var config = {
 firebase.initializeApp(config);
 
 var database = firebase.database();
+
 var signup = function(email, password){
     firebase.auth().createUserWithEmailAndPassword(email, password);
+    var splicedEmail = email.substring(0, email.indexOf("."));
+    var newUser = database.ref("/users").child(splicedEmail);
+    newUser.set(["no songs saved", "null"]);  
 }
 var signin = function(email, password){
     firebase.auth().signInWithEmailAndPassword(email, password);
 }
+var signout = function(){
+    firebase.auth().signOut();
+}
+//function that is called when the sign in state is changed
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
         var user = firebase.auth().currentUser
-      console.log(firebase.auth().currentUser);
+        userName = user.email
+        userName = userName.substring(0, userName.indexOf("."));
+        console.log(userName);
     } else {
       // No user is signed in.
     }
   });
+var saveSong = function(song){
+    var newSong =database.ref("/users/" + userName).child(song.title);
+    newSong.set(song)
+}
 //An array that will be populated by the songs returned from the getSongByLyrics function
 var songs = [];
 //A function that takes a lyric sample as an argument and calls the audd api to get full songs
