@@ -30,6 +30,7 @@ firebase.auth().onAuthStateChanged(function(user) {
         var user = firebase.auth().currentUser
         userName = user.email
         userName = userName.substring(0, userName.indexOf("."));
+        $("#view-saved").attr("style", "display: visible");
         console.log(userName);
     } else {
       // No user is signed in.
@@ -130,9 +131,11 @@ $(document).on("click",".song",function(){
     var lyricDiv = $("<div class=lyricDiv><h6>Artist: " + songs[ind].artist + "</h6><h6> Song: " + songs[ind].title + "</h6><p>" + songs[ind].lyrics + "</p>");
     $("#songresults").html(lyricDiv);
     $("#back-to-results").attr("style","display: visible");
+    $("#save-song").attr("style","display: visible");
 });
 
 $(document).on("click","#back-to-results", function(){
     $("#back-to-results").attr("style","display: none");
+    $("#save-song").attr("style","display: none");
     resultsToDisplay();
 });
