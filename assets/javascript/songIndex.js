@@ -1,6 +1,6 @@
 var userName;
 var firstRecord;
-var songsSaved;
+var songsSaved =[];
 
 var config = {
     apiKey: "AIzaSyC5e4ymIF11OrkIB4nXEiJZ2dGJN09KTFU",
@@ -26,23 +26,36 @@ var signin = function(email, password){
 var signout = function(){
     firebase.auth().signOut();
 }
-database.ref("/users/" + userName).on("value", function(snapshot){
-    songsSaved = snapshot.val().songsSaved;
-})
+
 //function that is called when the sign in state is changed
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
+        //grabbing all info about current user that is in the database
         var user = firebase.auth().currentUser
-
+        //setting a variable client side that is equal to the value in the database
         userName = user.email
         userName = userName.substring(0, userName.indexOf("@"));
+        //displaying the button that allows user to view their saved song 
         $("#view-saved").attr("style", "display: visible");
+        database.ref("/users/" + userName).child("signedin").set(true);
         console.log(userName);
     } else {
       database.ref("/users/" + userName).child("signedin").set(false);
     }
   });
+//a database reference that points to the user directory 
+database.ref("/users").on("value", function (snapshot) {
+    //a reference to the saved songs array of the signed in user
+    var songsSavedRef = snapshot.child(userName).child("songsSaved");
+    //for every saved song, add its key value pairs to the client's saved song array
+    songsSavedRef.forEach(function (childSnap) {
+        console.log("child songs ", childSnap);
+        songsSaved.push(childSnap.val());
+
+    })
+})
 var saveSong = function(song){
+    songsSaved = [];
     var newSong =database.ref("/users/" + userName).child("songsSaved").child(song.title + "-" + song.artist);
     newSong.set(song)
 }
@@ -91,6 +104,15 @@ var resultsToDisplay = function(){
         $("#songresults").append(songDiv);
     }
 }
+var savedToDisplay = function(){
+    $("#inputLyrics").attr("style","display: none");
+    $("#submit").attr("style","display: none");
+    for (j = 0; j < songsSaved.length; j++){
+        var songDiv = $("<div class='savedSong' data-ind='"+ j + "'>Artist: " + songsSaved[j].artist + " Song: " + songsSaved[j].title + "</div>");
+        console.log(songDiv);
+        $("#search-and-saved").append(songDiv);
+    };
+};
 var spotifyPull = function(trackID){
     // $.ajax({
     //     url: "https://accounts.spotify.com/api/token?grant_type=client_credentials",
@@ -120,7 +142,6 @@ $(document).on("click","#submit",function(event){
 
     if(lyricSample !=""){
         getSongByLyrics(lyricSample);
-        
     }
 });
 var ind;
@@ -138,6 +159,22 @@ $(document).on("click",".song",function(){
     $("#songresults").html(lyricDiv);
     $("#back-to-results").attr("style","display: visible");
     $("#save-song").attr("style","display: visible");
+});
+$(document).on("click",".savedSong", function(){
+    $(".results-container").show();
+    $(".record-container").hide();
+    $("#view-saved").attr("style", "display: none");
+    ind = $(this).attr("data-ind");
+    $("#songresults").empty();
+    for (k = 0; k < songsSaved[ind].mediaArr.length; k++)
+    {
+        if (songsSaved[ind].mediaArr[k].provider == "spotify"){
+            var id = songsSaved[ind].mediaArr[k].native_uri.substring(14);
+            spotifyPull(id);
+        }
+    }
+    var lyricDiv = $("<div class=lyricDiv><h6>Artist: " + songsSaved[ind].artist + "</h6><h6> Song: " + songsSaved[ind].title + "</h6><p>" + songsSaved[ind].lyrics + "</p>");
+    $("#songresults").html(lyricDiv);
 });
 
 $(document).on("click","#back-to-results", function(){
@@ -160,4 +197,16 @@ $(document).on("click","#loginbutton",function(){
 
 $(document).on("click","#save-song", function(){
     saveSong(songs[ind]);
-})
+});
+$(document).on("click","#view-saved", function(){
+    savedToDisplay();
+    $("#view-saved").attr("style", "display: none");
+    $("#back-to-search").attr("style","display: visible");
+});
+$(document).on("click","#back-to-search", function(){
+    $("#search-and-saved").empty();
+    $("#inputLyrics").attr("style","display: visible");
+    $("#submit").attr("style","display: visible");
+    $("#view-saved").attr("style", "display: visible");
+    $("#back-to-search").attr("style","display: none");
+});
