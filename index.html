@@ -7,6 +7,7 @@
   <!-- Dope Title -->
   <title>Oh, What's That Song?</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <!-- Reset CSS -->
   <link rel="stylesheet" type="text/css" media="screen" href="assets/css/reset.css" />
   <!-- Linking Bootstrap -->
@@ -18,10 +19,15 @@
     crossorigin="anonymous"></script>
 x  <link rel="stylesheet" type="text/css" media="screen" href="assets/css/songStyle.css" />
   <link rel="stylesheet" type="text/css" media="screen" href="assets/css/animate.css" />
+
+  <!-- Linking JQuery
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+=======
   <!-- Linking JQuery -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/5.8.1/firebase.js"></script>
+
   <!-- linking anime.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js"> </script>
   <!-- Font Links -->
@@ -104,7 +110,7 @@ x  <link rel="stylesheet" type="text/css" media="screen" href="assets/css/songSt
   <!-- Login in HTML -->
   <!-- =========================================================================== -->
 
-  <!-- <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -117,22 +123,22 @@ x  <link rel="stylesheet" type="text/css" media="screen" href="assets/css/songSt
         <div class="modal-body mx-3">
           <div class="md-form mb-5">
             <i class="fas fa-envelope prefix grey-text"></i>
-            <input type="email" id="defaultForm-email" class="form-control validate"> -->
+            <input type="email" id="defaultForm-email" class="form-control validate"> 
   <!-- E-mail text box -->
-  <!-- <label id="emaillogin" data-error="wrong" data-success="right" for="defaultForm-email">Your email</label>
+  <label id="emaillogin" data-error="wrong" data-success="right" for="defaultForm-email">Your email</label>
           </div>
   
           <div class="md-form mb-4">
             <i class="fas fa-lock prefix grey-text"></i>
-            <input type="password" id="defaultForm-pass" class="form-control validate"> -->
+            <input type="password" id="defaultForm-pass" class="form-control validate"> 
   <!-- Password Text Box -->
-  <!-- <label id="passwordlogin"   data-error="wrong" data-success="right" for="defaultForm-pass">Your password</label>
+  <label id="passwordlogin"   data-error="wrong" data-success="right" for="defaultForm-pass">Your password</label>
           </div>
   
         </div>
-        <div class="modal-footer d-flex justify-content-center"> -->
+        <div class="modal-footer d-flex justify-content-center"> 
   <!-- Login Button -->
-  <!-- <button id="loginbutton" class="btn btn-default">Login</button>
+  <button id="loginbutton" class="btn btn-default">Login</button>
         </div>
       </div>
     </div>
@@ -140,11 +146,11 @@ x  <link rel="stylesheet" type="text/css" media="screen" href="assets/css/songSt
   
   <div class="text-center">
     <a href="" class="btn btn-default btn-rounded mb-4 text-white" data-toggle="modal" data-target="#modalLoginForm">LOGIN TO WHATS THAT SONG!</a>
-  </div> -->
+  </div> 
 
   <!-- Sign up HTML -->
 
-  <!-- <div class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  <div class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -157,28 +163,28 @@ x  <link rel="stylesheet" type="text/css" media="screen" href="assets/css/songSt
       <div class="modal-body mx-3">
         <div class="md-form mb-5">
           <i class="fas fa-user prefix grey-text"></i>
-          <input type="text" id="orangeForm-name" class="form-control validate"> -->
+          <input type="text" id="orangeForm-name" class="form-control validate"> 
   <!-- Name Text Box -->
-  <!-- <label id="namesignup"   data-error="wrong" data-success="right" for="orangeForm-name">Your name</label>
+   <label id="namesignup"   data-error="wrong" data-success="right" for="orangeForm-name">Your name</label>
         </div>
         <div class="md-form mb-5">
           <i class="fas fa-envelope prefix grey-text"></i>
-          <input type="email" id="orangeForm-email" class="form-control validate"> -->
+          <input type="email" id="orangeForm-email" class="form-control validate">
   <!-- E-mail text box -->
-  <!-- <label id="emailsignup" data-error="wrong" data-success="right" for="orangeForm-email">Your email</label>
+  <label id="emailsignup" data-error="wrong" data-success="right" for="orangeForm-email">Your email</label>
         </div>
 
         <div class="md-form mb-4">
           <i class="fas fa-lock prefix grey-text"></i>
-          <input type="password" id="orangeForm-pass" class="form-control validate"> -->
+          <input type="password" id="orangeForm-pass" class="form-control validate"> 
   <!-- Password Text Box -->
-  <!-- <label id="passlogin" data-error="wrong" data-success="right" for="orangeForm-pass">Your password</label>
+  <label id="passlogin" data-error="wrong" data-success="right" for="orangeForm-pass">Your password</label>
         </div>
 
       </div>
-      <div class="modal-footer d-flex justify-content-center"> -->
+      <div class="modal-footer d-flex justify-content-center"> 
   <!-- Sign up Button -->
-  <!-- <button id="signupbutton" class="btn btn-deep-orange">Sign Up!</button>
+  <button id="signupbutton" class="btn btn-deep-orange">Sign Up!</button>
       </div>
     </div>
   </div>
@@ -186,10 +192,18 @@ x  <link rel="stylesheet" type="text/css" media="screen" href="assets/css/songSt
 
 <div class="text-center">
   <a href="" class="btn btn-default btn-rounded mb-4 text-white" data-toggle="modal" data-target="#modalRegisterForm">SIGN UP FOR WHATS THAT SONG!</a>
-</div> -->
+</div> 
 
 
-  <!-- Footer workspace -->
+
+
+
+
+
+
+
+
+<!-- Footer workspace -->
   <footer class="footer mt-5 py-3">
 
     <div class="container">
