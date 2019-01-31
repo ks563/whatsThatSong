@@ -3,6 +3,9 @@ var userName;
 //an array so the client can access their saved songs
 var songsSaved =[];
 //initializing firebase
+var validChars = "abcdefghijklmnopqrstuvwxyz0123456789"
+//userNames
+var userNames = []
 var config = {
     apiKey: "AIzaSyC5e4ymIF11OrkIB4nXEiJZ2dGJN09KTFU",
     authDomain: "whats-that-song-p1.firebaseapp.com",
@@ -15,8 +18,15 @@ firebase.initializeApp(config);
 //root of our database
 var database = firebase.database();
 //a function that will create a new user in firebase and give them a directory in the database 
-var signup = function(email, password){
-    firebase.auth().createUserWithEmailAndPassword(email, password);
+var signup = function(email, password, disName){
+    var validEntry = true;
+    for (o = 0; o < disName.length; o++){
+        if (validChars.indexOf(disName[o]) === -1){
+            validEntry = false;
+        }
+    }
+    if (!userNames.includes(disName) && validEntry){
+        firebase.auth().createUserWithEmailAndPassword(email, password);
     //the name of the directory and username will be the user's email address before the '@' sign
     var splicedEmail = email.substring(0, email.indexOf("@")).replace(/\./g, "");
     console.log("spliced email ",splicedEmail);
@@ -25,6 +35,17 @@ var signup = function(email, password){
     var newUser = database.ref("/users").child(splicedEmail);
     //the user account is signed in and are given a directory for saved songs
     newUser.set({signedin: true, songsSaved: false});  
+    }
+    else{
+        if(validEntry){
+            $("#signup-err").text("Sorry that username is already taken!");
+        }
+        else{
+            $("#signup-err").text("Sorry usernames can only include characters A-Z and 0-9");
+        }
+        
+    }   
+    
 }
 // a function that will sign in an existing user
 var signin = function(email, password){
@@ -65,14 +86,20 @@ firebase.auth().onAuthStateChanged(function(user) {
   });
 //a database reference that points to the user directory 
 database.ref("/users").on("value", function (snapshot) {
-    //a reference to the saved songs array of the signed in user
-    var songsSavedRef = snapshot.child(userName).child("songsSaved");
-    //for every saved song, add its key value pairs to the client's saved song array
-    songsSavedRef.forEach(function (childSnap) {
-        console.log("child songs ", childSnap);
-        songsSaved.push(childSnap.val());
+    userNames = []
+    snapshot.forEach(function (child){
+        userNames.push(child.key);
+    });
+    if (userName != "") {
+        //a reference to the saved songs array of the signed in user
+        var songsSavedRef = snapshot.child(userName).child("songsSaved");
+        //for every saved song, add its key value pairs to the client's saved song array
+        songsSavedRef.forEach(function (childSnap) {
+            console.log("child songs ", childSnap);
+            songsSaved.push(childSnap.val());
+        });
+    }
 
-    })
 })
 //a function that the client can use to save a song. 
 var saveSong = function(song){
@@ -126,6 +153,7 @@ var getSongByLyrics = function(query){
         resultsToDisplay();
     });
 }
+//a function that will display the results of the ajax call to the dom
 var resultsToDisplay = function(){
     $("#songresults").empty();
     console.log("i have been called");
@@ -135,6 +163,7 @@ var resultsToDisplay = function(){
         $("#songresults").append(songDiv);
     }
 }
+//a function that will display the logged in user's saved songs
 var savedToDisplay = function(){
     $("#inputLyrics").attr("style","display: none");
     $("#submit").attr("style","display: none");
@@ -144,6 +173,7 @@ var savedToDisplay = function(){
         $("#search-and-saved").append(songDiv);
     };
 };
+//pulling spotify info with it's api
 var spotifyPull = function(trackID){
     // $.ajax({
     //     url: "https://accounts.spotify.com/api/token?grant_type=client_credentials",
@@ -165,6 +195,7 @@ var spotifyPull = function(trackID){
         console.log(response);
     });
 }
+//a function that is called to submit the lyric sample to the ajax call 
 $(document).on("click","#submit",function(event){
     event.preventDefault();
     var lyricSample = $("#inputLyrics").val();
@@ -176,9 +207,13 @@ $(document).on("click","#submit",function(event){
     }
 });
 var ind;
+//when a song is clicked it's info will be displayed in the results div
 $(document).on("click",".song",function(){
+    //getting the data attr from the song that was clicked on 
     ind = $(this).attr("data-ind");
+    //emptying the song results div
     $("#songresults").empty();
+    //for each media object in the song object, find the spotify id and call the spotify api with it 
     for (k = 0; k < songs[ind].mediaArr.length; k++)
     {
         if (songs[ind].mediaArr[k].provider == "spotify"){
@@ -186,11 +221,14 @@ $(document).on("click",".song",function(){
             spotifyPull(id);
         }
     }
+    //append the results to the dom
     var lyricDiv = $("<div class=lyricDiv><h6>Artist: " + songs[ind].artist + "</h6><h6> Song: " + songs[ind].title + "</h6><p>" + songs[ind].lyrics + "</p>");
+    //hide and show the relevant buttons
     $("#songresults").html(lyricDiv);
     $("#back-to-results").attr("style","display: visible");
     $("#save-song").attr("style","display: visible");
 });
+//this function performs similarly to the one above, but is called when saved songs are clicked on
 $(document).on("click",".savedSong", function(){
     $(".results-container").show();
     $(".record-container").hide();
@@ -207,33 +245,35 @@ $(document).on("click",".savedSong", function(){
     var lyricDiv = $("<div class=lyricDiv><h6>Artist: " + songsSaved[ind].artist + "</h6><h6> Song: " + songsSaved[ind].title + "</h6><p>" + songsSaved[ind].lyrics + "</p>");
     $("#songresults").html(lyricDiv);
 });
-
+//repopulates the results div with the most recent search results
 $(document).on("click","#back-to-results", function(){
     $("#back-to-results").attr("style","display: none");
     $("#save-song").attr("style","display: none");
     resultsToDisplay();
 });
-
+//a function that will allow the user to sign up using their email and password
 $(document).on("click","#signupbutton",function(){
     var em = $("#signup-email").val().trim();
     var pass = $("#signup-pass").val().trim();
     signup (em, pass);
 });
-
+//loginbutton 
 $(document).on("click","#loginbutton",function(){
     var em = $("#login-email").val().trim();
     var pass = $("#login-pass").val().trim();
     signin (em, pass);
 });
-
+//a button that will save the invoking song
 $(document).on("click","#save-song", function(){
     saveSong(songs[ind]);
 });
+//button that allos user to view their saved songs
 $(document).on("click","#view-saved", function(){
     savedToDisplay();
     $("#view-saved").attr("style", "display: none");
     $("#back-to-search").attr("style","display: visible");
 });
+//button that allows user to return to search after looking at their saved songs
 $(document).on("click","#back-to-search", function(){
     $("#search-and-saved").empty();
     $("#inputLyrics").attr("style","display: visible");
@@ -241,6 +281,7 @@ $(document).on("click","#back-to-search", function(){
     $("#view-saved").attr("style", "display: visible");
     $("#back-to-search").attr("style","display: none");
 });
+//a button that allows users to sign out of their account
 $(document).on("click","#logout", function(){
     signout()
 })
