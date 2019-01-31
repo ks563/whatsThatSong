@@ -2,12 +2,14 @@ body{
     background-image: url(../images/tweed_@2X.png);
     background-repeat: repeat;
 }
-.jumbotron{
+.header-container{
     font-family: 'Monoton', cursive;
-    font-size: 20em;
+    font-size: 10em;
     color: #fef7ed;
     text-align:center;
-    background:none;    
+    background:none;
+    padding-top: 2.5%;
+    padding-bottom:2.5%;    
 }
 
 .recordOne{

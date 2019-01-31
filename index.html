@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <!-- Reset CSS -->
-  <link rel="stylesheet" type="text/css" media="screen" href="assets/css/reset.css" /> 
+  <link rel="stylesheet" type="text/css" media="screen" href="assets/css/reset.css" />
   <!-- Linking JQuery -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <!-- Linking Bootstrap -->
@@ -17,7 +17,7 @@
     crossorigin="anonymous">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
     crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
     crossorigin="anonymous"></script>
   <!-- css links -->
   <link rel="stylesheet" type="text/css" media="screen" href="assets/css/songStyle.css" />
@@ -34,10 +34,16 @@
 
 <body>
 
-  <!-- Jumbotron workspace -->
-  <div class="jumbotron jumbotron-fluid">
-    <div class="container">
-      <h1 class="display-4">What's That Song?!</h1>
+  <!-- header -->
+  <div class="header-container">
+    <div class="row">
+      <div class="col-4"></div>
+      <div class="col-4">
+        <h1 class="display-4">What's That Song?!</h1>
+      </div>
+      <div class="col-4">
+        
+      </div>
     </div>
   </div>
 
@@ -45,13 +51,13 @@
   <div class="container record-container">
     <div class="row" id="spinning-record">
       <div class="col-4">
-          <img src="assets/images/snow-patrol-run-remixes.png" alt="spinning record" class="recordOne img-fluid">
+        <img src="assets/images/snow-patrol-run-remixes.png" alt="spinning record" class="recordOne img-fluid">
       </div>
       <div class="col-4">
         <img src="assets/images/snow-patrol-run-remixes.png" alt="spinning record" class="recordTwo img-fluid">
-        </div>
+      </div>
       <div class="col-4">
-          <img src="assets/images/snow-patrol-run-remixes.png" alt="spinning record" class="recordThree img-fluid">
+        <img src="assets/images/snow-patrol-run-remixes.png" alt="spinning record" class="recordThree img-fluid">
       </div>
     </div>
   </div>
@@ -71,10 +77,11 @@
     </div>
 
     <div class="row p-2">
-        <div class="col-12">
-            <!-- Search Text Box & Saved songs-->
-            <input id="inputLyrics" class="form-control" type="text" placeholder="Oops I did it again" aria-label="Search" style="display: visible">
-          </div>
+      <div class="col-12">
+        <!-- Search Text Box & Saved songs-->
+        <input id="inputLyrics" class="form-control" type="text" placeholder="Oops I did it again" aria-label="Search"
+          style="display: visible">
+      </div>
       <div id="search-and-saved" class="col-12">
         <!-- Saved songs-->
       </div>
@@ -116,8 +123,7 @@
   <!-- Login in HTML -->
   <!-- =========================================================================== -->
 
-  <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-    aria-hidden="true">
+  <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header text-center">
@@ -133,87 +139,88 @@
 
 
 
-  <!-- E-mail text box -->
-  <label id="emaillogin" data-error="wrong" data-success="right" for="defaultForm-email">Your email</label>
+            <!-- E-mail text box -->
+            <label id="emaillogin" data-error="wrong" data-success="right" for="defaultForm-email">Email</label>
           </div>
-  
+
           <div class="md-form mb-2">
             <i class="fas fa-lock prefix grey-text"></i>
             <input type="password" id="login-pass" class="form-control validate">
 
 
 
-  <!-- Password Text Box -->
-  <label id="passwordlogin"   data-error="wrong" data-success="right" for="defaultForm-pass">Your password</label>
+            <!-- Password Text Box -->
+            <label id="passwordlogin" data-error="wrong" data-success="right" for="defaultForm-pass">Password</label>
           </div>
         </div>
         <div class="modal-footer d-flex justify-content-center">
 
-  <!-- Login Button -->
-  <button id="loginbutton" class="btn btn-default">Login</button>
+          <!-- Login Button -->
+          <button id="loginbutton" class="btn btn-default">Login</button>
         </div>
       </div>
     </div>
   </div>
-  
+
   <div class="text-center">
-    <a href="" class="btn btn-default btn-rounded mb-2 text-white" data-toggle="modal" data-target="#modalLoginForm">LOGIN TO WHATS THAT SONG!</a>
+    <a href="" class="btn btn-default btn-rounded mb-2 text-white" data-toggle="modal" data-target="#modalLoginForm">Login
+      Here!</a>
   </div>
 
 
   <!-- Sign up HTML -->
 
-  <div class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">Sign up</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-2">
-        <!-- <div class="md-form mb-2">
+  <div class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header text-center">
+          <h4 class="modal-title w-100 font-weight-bold">Sign up</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body mx-2">
+          <!-- <div class="md-form mb-2">
           <i class="fas fa-user prefix grey-text"></i>
           <input type="text" id="orangeForm-name" class="form-control validate">
  -->
 
-  <!-- Name Text Box -->
-  <!-- <label id="namesignup"   data-error="wrong" data-success="right" for="orangeForm-name">Your name</label>
+          <!-- Name Text Box -->
+          <!-- <label id="namesignup"   data-error="wrong" data-success="right" for="orangeForm-name">Your name</label>
         </div> -->
-        <div class="md-form mb-2">
-          <i class="fas fa-envelope prefix grey-text"></i>
-          <input type="email" id="signup-email" class="form-control validate">
+          <div class="md-form mb-2">
+            <i class="fas fa-envelope prefix grey-text"></i>
+            <input type="email" id="signup-email" class="form-control validate">
 
 
-  <!-- E-mail text box -->
-  <label id="emailsignup" data-error="wrong" data-success="right" for="orangeForm-email">Your email</label>
+            <!-- E-mail text box -->
+            <label id="emailsignup" data-error="wrong" data-success="right" for="orangeForm-email">Email</label>
+          </div>
+          <div class="md-form mb-2">
+            <i class="fas fa-lock prefix grey-text"></i>
+            <input type="password" id="signup-pass" class="form-control validate">
+
+
+            <!-- Password Text Box -->
+            <label id="passlogin" data-error="wrong" data-success="right" for="orangeForm-pass">Password</label>
+          </div>
+
         </div>
-        <div class="md-form mb-2">
-          <i class="fas fa-lock prefix grey-text"></i>
-          <input type="password" id="signup-pass" class="form-control validate">
+        <div class="modal-footer d-flex justify-content-center">
 
-
-  <!-- Password Text Box -->
-  <label id="passlogin" data-error="wrong" data-success="right" for="orangeForm-pass">Your password</label>
+          <!-- Sign up Button -->
+          <button id="signupbutton" class="btn btn-deep-orange">Sign Up!</button>
         </div>
-
-      </div>
-      <div class="modal-footer d-flex justify-content-center"> 
-
-  <!-- Sign up Button -->
-  <button id="signupbutton" class="btn btn-deep-orange">Sign Up!</button>
       </div>
     </div>
   </div>
-</div>
-<div class="text-center">
-  <a href="" class="btn btn-default btn-rounded mb-2 text-white" data-toggle="modal" data-target="#modalRegisterForm">SIGN UP FOR WHATS THAT SONG!</a>
-</div>
+  <div class="text-center">
+    <a href="" class="btn btn-default btn-rounded mb-2 text-white" data-toggle="modal" data-target="#modalRegisterForm">Sign
+      Up!</a>
+  </div>
 
 
-<!-- Footer workspace -->
+  <!-- Footer workspace -->
   <footer class="footer mt-5 py-3">
 
     <div class="container">
