@@ -73,6 +73,7 @@ var signin = function(email, password){
 }
 // a function that will siginout the currently logged in user
 var signout = function(){
+    database.ref("/users/" + userName).child("signedin").set(false);
     firebase.auth().signOut();
     userName = "";
     songsSaved = [];
