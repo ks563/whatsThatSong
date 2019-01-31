@@ -1,5 +1,5 @@
 //The client's user name
-var userName;
+var userName ="";
 //an array so the client can access their saved songs
 var songsSaved =[];
 //initializing firebase
@@ -20,21 +20,41 @@ var database = firebase.database();
 //a function that will create a new user in firebase and give them a directory in the database 
 var signup = function(email, password, disName){
     var validEntry = true;
+    //this ensures that only alphanumeric chars have been used for the username
     for (o = 0; o < disName.length; o++){
         if (validChars.indexOf(disName[o]) === -1){
             validEntry = false;
         }
     }
+    //this checks to see if the username is already in use
     if (!userNames.includes(disName) && validEntry){
-        firebase.auth().createUserWithEmailAndPassword(email, password);
+        //attempt to create a user account with provided info
+        firebase.auth().createUserWithEmailAndPassword(email, password).then(function(){
+            //if there were no errors on firebase's end we give the account a username
+            var user = firebase.auth().currentUser;
+
+            user.updateProfile({
+                displayName: disName
+            });
+            //setting the client user name
+            userName = disName
+            console.log("creating user: ", userName);
+            //the user account is given a directory in the database
+            var newUser = database.ref("/users").child(disName);
+            //the user account is signed in and are given a directory for saved songs
+            newUser.set({signedin: true, songsSaved: false});  
+        }).catch(function (error){
+            $("#signup-err").text(error.message);
+            console.log("firebase error");
+        });
     //the name of the directory and username will be the user's email address before the '@' sign
-    var splicedEmail = email.substring(0, email.indexOf("@")).replace(/\./g, "");
-    console.log("spliced email ",splicedEmail);
-    // splicedEmail = splicedEmail;
-    console.log("no periods",splicedEmail);
-    var newUser = database.ref("/users").child(splicedEmail);
-    //the user account is signed in and are given a directory for saved songs
-    newUser.set({signedin: true, songsSaved: false});  
+    // var splicedEmail = email.substring(0, email.indexOf("@")).replace(/\./g, "");
+    // console.log("spliced email ",splicedEmail);
+    // // splicedEmail = splicedEmail;
+    // console.log("no periods",splicedEmail);
+    // var newUser = database.ref("/users").child(splicedEmail);
+    // //the user account is signed in and are given a directory for saved songs
+    // newUser.set({signedin: true, songsSaved: false});  
     }
     else{
         if(validEntry){
@@ -44,8 +64,7 @@ var signup = function(email, password, disName){
             $("#signup-err").text("Sorry usernames can only include characters A-Z and 0-9");
         }
         
-    }   
-    
+    } 
 }
 // a function that will sign in an existing user
 var signin = function(email, password){
@@ -56,18 +75,23 @@ var signin = function(email, password){
 var signout = function(){
     firebase.auth().signOut();
     userName = "";
+    songsSaved = [];
 }
 
 //function that is called when the sign in state is changed
-firebase.auth().onAuthStateChanged(function(user) {
+firebase.auth().onAuthStateChanged(function(userCurr) {
     //the user is signed in
-    if (user) {
+    if (userCurr) {
         //grabbing all info about current user that is in the database
-        var user = firebase.auth().currentUser
+        // var userCurr = firebase.auth().currentUser;
+        console.log(userCurr);
         //setting a variable client side that is equal to the value in the database
-        userName = user.email
+        if(userName === ""){
+            userName = userCurr.displayName;
+        }
+
         //getting the value of everything before the @ in the email and removing the periods 
-        userName = userName.substring(0, userName.indexOf("@")).replace(/\./g, "");
+        // userName = userName.substring(0, userName.indexOf("@")).replace(/\./g, "");
         //displaying the button that allows user to view their saved song 
         $("#view-saved").attr("style", "display: visible");
         database.ref("/users/" + userName).child("signedin").set(true);
@@ -82,6 +106,7 @@ firebase.auth().onAuthStateChanged(function(user) {
       database.ref("/users/" + userName).child("signedin").set(false);
       $("#log-con").attr("style", "display: visible");
       $("#logged-con").attr("style", "display: none");
+      songsSaved = [];
     }
   });
 //a database reference that points to the user directory 
@@ -255,7 +280,8 @@ $(document).on("click","#back-to-results", function(){
 $(document).on("click","#signupbutton",function(){
     var em = $("#signup-email").val().trim();
     var pass = $("#signup-pass").val().trim();
-    signup (em, pass);
+    var name = $("#signup-user").val().trim()
+    signup (em, pass, name);
 });
 //loginbutton 
 $(document).on("click","#loginbutton",function(){
