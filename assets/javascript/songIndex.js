@@ -18,7 +18,10 @@ var database = firebase.database();
 var signup = function(email, password){
     firebase.auth().createUserWithEmailAndPassword(email, password);
     //the name of the directory and username will be the user's email address before the '@' sign
-    var splicedEmail = email.substring(0, email.indexOf("@"));
+    var splicedEmail = email.substring(0, email.indexOf("@")).replace(/\./g, "");
+    console.log("spliced email ",splicedEmail);
+    // splicedEmail = splicedEmail;
+    console.log("no periods",splicedEmail);
     var newUser = database.ref("/users").child(splicedEmail);
     //the user account is signed in and are given a directory for saved songs
     newUser.set({signedin: true, songsSaved: false});  
@@ -31,6 +34,7 @@ var signin = function(email, password){
 // a function that will siginout the currently logged in user
 var signout = function(){
     firebase.auth().signOut();
+    userName = "";
 }
 
 //function that is called when the sign in state is changed
@@ -41,7 +45,8 @@ firebase.auth().onAuthStateChanged(function(user) {
         var user = firebase.auth().currentUser
         //setting a variable client side that is equal to the value in the database
         userName = user.email
-        userName = userName.substring(0, userName.indexOf("@"));
+        //getting the value of everything before the @ in the email and removing the periods 
+        userName = userName.substring(0, userName.indexOf("@")).replace(/\./g, "");
         //displaying the button that allows user to view their saved song 
         $("#view-saved").attr("style", "display: visible");
         database.ref("/users/" + userName).child("signedin").set(true);
@@ -49,8 +54,13 @@ firebase.auth().onAuthStateChanged(function(user) {
         //when the user is successfully signed in, we can close the modal
         $("#modalRegisterForm").modal("hide");
         $("#modalLoginForm").modal("hide");
+        $("#log-con").attr("style", "display: none");
+        $("#logged-con").attr("style", "display: visible");
+        $("#logged-name").text("Welcome " + userName);
     } else {
       database.ref("/users/" + userName).child("signedin").set(false);
+      $("#log-con").attr("style", "display: visible");
+      $("#logged-con").attr("style", "display: none");
     }
   });
 //a database reference that points to the user directory 
@@ -231,3 +241,6 @@ $(document).on("click","#back-to-search", function(){
     $("#view-saved").attr("style", "display: visible");
     $("#back-to-search").attr("style","display: none");
 });
+$(document).on("click","#logout", function(){
+    signout()
+})
