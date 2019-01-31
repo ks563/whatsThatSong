@@ -11,6 +11,9 @@ body{
     padding-bottom:2.5%;    
 }
 
+.signup-err{
+    color: rgb(255, 88, 88);
+}
 .sign-up-btn{
     font-family: 'Voltaire', sans-serif;
     color: #fef7ed;
