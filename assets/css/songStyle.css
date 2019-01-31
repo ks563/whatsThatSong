@@ -4,12 +4,32 @@ body{
 }
 .header-container{
     font-family: 'Monoton', cursive;
-    font-size: 10em;
+    font-size:7em;
     color: #fef7ed;
     text-align:center;
-    background:none;
     padding-top: 2.5%;
     padding-bottom:2.5%;    
+}
+
+.sign-up-btn{
+    font-family: 'Voltaire', sans-serif;
+    color: #fef7ed;
+    text-decoration: underline;
+    font-size: 1.1em;
+}
+
+.login-btn{
+    font-family: 'Voltaire', sans-serif;
+    color: #fef7ed;
+    text-decoration: underline;
+    font-size: 1.1em;
+}
+
+.welcome{
+    font-family: 'Voltaire', sans-serif;
+    color: #fef7ed;
+    font-weight: bold;
+    
 }
 
 .recordOne{
@@ -37,6 +57,8 @@ body{
     background-color: #fef7ed;
     border: solid;
     border-width: thin;
+    padding: 2%;
+    margin: auto;
 }
 
 .inputclass, .infoclass{
@@ -49,6 +71,8 @@ body{
     border-width: thin;
     border: solid;
     border: round;
+    padding: 2%;
+    margin: auto;
 }
 
 .song{
@@ -74,3 +98,18 @@ body{
     color:#fef7ed;
 }
 
+@media (min-width: 200px) and (max-width: 767.98px) {
+
+    .header-container{
+        font-size:3em;
+    }
+
+    .search-container{
+        width: 100%;
+    }
+
+    .results-container{
+        font-size: 1em;
+    }
+
+}
