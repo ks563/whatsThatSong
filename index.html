@@ -37,15 +37,13 @@
   <div class="container">
       <div class= "row justify-content-end" id="log-con">
           <div class="text-center col-2">
-              <a href="" class="btn btn-default btn-rounded mb-2 text-white" data-toggle="modal" data-target="#modalRegisterForm">SIGN
-                UP</a>
+              <a href="" class="btn btn-default btn-rounded mb-2 sign-up-btn" data-toggle="modal" data-target="#modalRegisterForm">Sign Up</a>
             </div>
             <div class="text-center col-2">
-              <a href="" class="btn btn-default btn-rounded mb-2 text-white" data-toggle="modal" data-target="#modalLoginForm">LOGIN
-              </a>
+              <a href="" class="btn btn-default btn-rounded mb-2 login-btn" data-toggle="modal" data-target="#modalLoginForm">Log In</a>
             </div>
       </div>
-      <div class= "row justify-content-end" id="logged-con">
+      <div class= "row justify-content-end welcome" id="logged-con">
           <div class= "col-4">
             <span id="logged-name">Welcome </span><span id = logout class="logout"> (logout) </span>
           </div>
@@ -56,15 +54,13 @@
   <!-- header -->
   <div class="header-container">
     <div class="row">
-      <div class="col-4"></div>
-      <div class="col-4">
-        <h1 class="display-4">What's That Song?!</h1>
+      <div class="col justify-content-end">
+        <p>What's That Song?!</p>
       </div>
-      <div class="col-4">
         
       </div>
     </div>
-  </div>
+  
 
   <!-- Animation space for record player -->
   <div class="container record-container">
@@ -82,15 +78,15 @@
   </div>
 
   <!-- Container for input text  -->
-  <div class="container search-container mb-5 rounded inputclass">
-    <div class="row mt-1 p-3">
+  <div class="container search-container rounded inputclass">
+    <div class="row">
       <div class="col-sm-9 col-lg-9">
         <h3>Search Lyics Here!</h3>
       </div>
-      <div class="col-sm-3 mt-1">
+      <div class="col-sm-3">
         <button id="view-saved" type="button" class="btn btn-dark" style="display: none;">Saved Songs</button>
       </div>
-      <div class="col-sm-3 mt-1">
+      <div class="col-sm-3">
         <button id="back-to-search" type="button" class="btn btn-dark" style="display: none;">Return to Search</button>
       </div>
     </div>
@@ -106,8 +102,8 @@
       </div>
     </div>
 
-    <div class="row p-2">
-      <div class="col-lg-4 col-sm-12 mb-3">
+    <div class="row">
+      <div class="col-lg-4 col-sm-12">
         <!-- Search Button -->
         <input id="submit" type="submit" class="mt-3 btn btn-dark btn-lg btn-block" value="GIVE IT TO ME!" style="display: visible">
       </div>
@@ -117,20 +113,20 @@
 
   <!-- container for search results -->
   <div class="container results-container rounded infoclass">
-    <div class="row mt-1 p-3">
+    <div class="row">
       <div class="col-lg-7 col-sm-12">
         Search Results!
       </div>
-      <div class="col-sm-3 mt-1">
+      <div class="col-sm-3">
         <button id="back-to-results" type="button" class="btn btn-dark" style="display: none;">Back to results</button>
       </div>
-      <div class="col-sm-2 mt-1">
+      <div class="col-sm-2">
         <button id="save-song" type="button" class="btn btn-dark" style="display: none;">Save Song</button>
       </div>
 
     </div>
-    <div class="row p-3">
-      <div class="col-12 mt-3">
+    <div class="row">
+      <div class="col-12">
         <div id="songresults">Results show up here!</div>
       </div>
 
@@ -214,7 +210,7 @@
 
 
             <!-- Password Text Box -->
-            <label id="passlogin" data-error="wrong" data-success="right" for="orangeForm-pass">Password</label>
+            <label id="passlogin" data-error="wrong" data-success="right" for="orangeForm-pass">Password (Min 6 Characters)</label>
           </div>
 
         </div>
