@@ -101,7 +101,9 @@ firebase.auth().onAuthStateChanged(function(userCurr) {
         $("#log-con").attr("style", "display: none");
         $("#logged-con").attr("style", "display: visible");
         $("#logged-name").text("Welcome " + userName);
-    } else {
+    }
+    //typically trigged when a user logs out 
+    else {
         if(userName !="")
         {
             database.ref("/users/" + userName).child("signedin").set(false);
@@ -120,10 +122,12 @@ database.ref("/users").on("value", function (snapshot) {
         userNames.push(child.key);
     });
     if (userName != "" && userName != null) {
+        songsSaved = []
         console.log("getting songs for ",userName);
         //a reference to the saved songs array of the signed in user
         var songsSavedRef = snapshot.child(userName).child("songsSaved");
         //for every saved song, add its key value pairs to the client's saved song array
+        console.log("saving song");
         songsSavedRef.forEach(function (childSnap) {
             console.log("child songs ", childSnap);
             songsSaved.push(childSnap.val());
@@ -135,6 +139,7 @@ database.ref("/users").on("value", function (snapshot) {
 var saveSong = function(song){
     //clearing the client's saved song array
     songsSaved = [];
+    // var title = song.title.
     //the new song is given a directory where its key value pairs will be saved (key value pairs come from the aud.io  api call stored in the client earlier)
     var newSong =database.ref("/users/" + userName).child("songsSaved").child(song.title + "-" + song.artist);
     newSong.set(song)
@@ -155,25 +160,34 @@ var getSongByLyrics = function(query){
         //Grabbing 5 songs from the api call
         for (i = 0; i < 5; i++){
             //assigning a song object with the keys
-            var song = {artist: "", title: "",lyrics: "" , mediaArr: [], spotify: null, itunes: null};
+            var song = {artist: "", title: "",lyrics: "" ,lyricsHighlight: "", mediaArr: [], spotify: null, itunes: null, saved: false};
             //assigning the proper values to the keys
             song.artist = response.result[i].artist;
             song.title = response.result[i].title;
             song.lyrics = response.result[i].lyrics;
+
+            for (n = 0; n < songsSaved.length; n++){
+                if (song.title === songsSaved[n].title && song.artist === songsSaved[n].artist){
+                    song.saved = true;
+                }
+            }
     
             //this is used to format the lyrics into a nicer form
             var openB = "["
             song.lyrics = song.lyrics.replace(/\[/g,'<br>[');
             song.lyrics = song.lyrics.replace(/\]/g,']<br>');
             //this is used to highlight the lyric query in the returned lyrics where it shows up
-            song.lyrics = song.lyrics.replace(new RegExp(query, 'g'), "<span class=queryFound>" + query + "</span>");
+            song.lyricsHighlight = song.lyrics.replace(new RegExp(query, 'g'), "<span class=queryFound>" + query + "</span>");
             
             try{
                 song.mediaArr = JSON.parse(response.result[i].media);
             }
             catch(err){
                 console.log(err.message);
-                song.mediaArr = "";
+                
+            }
+            if(song.mediaArr.length === 0){
+                song.mediaArr = "unabletoparse";
             }
 
             //adding the song object to the songs array
@@ -200,10 +214,12 @@ var savedToDisplay = function(){
     $("#search-and-saved").empty();
     for (j = 0; j < songsSaved.length; j++){
         var songDiv = $("<div class='savedSong' data-ind='"+ j + "'>Artist: " + songsSaved[j].artist + " Song: " + songsSaved[j].title + "</div>");
-        console.log(songDiv);
         $("#search-and-saved").append(songDiv);
     };
 };
+var validator = function(toValid){
+
+}
 //pulling spotify info with it's api
 var spotifyPull = function(trackID){
     // $.ajax({
@@ -253,11 +269,13 @@ $(document).on("click",".song",function(){
         }
     }
     //append the results to the dom
-    var lyricDiv = $("<div class=lyricDiv><h6>Artist: " + songs[ind].artist + "</h6><h6> Song: " + songs[ind].title + "</h6><p>" + songs[ind].lyrics + "</p>");
+    var lyricDiv = $("<div class=lyricDiv><h6>Artist: " + songs[ind].artist + "</h6><h6> Song: " + songs[ind].title + "</h6><p>" + songs[ind].lyricsHighlight + "</p>");
     //hide and show the relevant buttons
     $("#songresults").html(lyricDiv);
     $("#back-to-results").attr("style","display: visible");
-    $("#save-song").attr("style","display: visible");
+    if (!songs[ind].saved){
+        $("#save-song").attr("style","display: visible");
+    }
 });
 //this function performs similarly to the one above, but is called when saved songs are clicked on
 $(document).on("click",".savedSong", function(){
@@ -275,6 +293,7 @@ $(document).on("click",".savedSong", function(){
     }
     var lyricDiv = $("<div class=lyricDiv><h6>Artist: " + songsSaved[ind].artist + "</h6><h6> Song: " + songsSaved[ind].title + "</h6><p>" + songsSaved[ind].lyrics + "</p>");
     $("#songresults").html(lyricDiv);
+    $("#save-song").attr("style","display: none");
 });
 //repopulates the results div with the most recent search results
 $(document).on("click","#back-to-results", function(){
