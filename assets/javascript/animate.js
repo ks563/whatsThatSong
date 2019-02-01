@@ -1,4 +1,4 @@
-var el = document.querySelectorAll(".recordOne, .recordTwo, .recordThree" );
+var el = document.querySelectorAll(".recordOne, .recordTwo, .recordThree, .recordFour" );
 
 var spin = anime({
     targets:  el,
