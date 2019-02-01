@@ -330,7 +330,7 @@ $(document).on("click", ".savedSong", function () {
     $("#songresults").html(lyricDiv);
     $("#songresults").prepend(mediaLinks);
     $("#save-song").attr("style", "display: none");
-    $("#back-to-results").attr("style", "display: visible");
+    $("#back-to-results").attr("style", "display: none");
 });
 //repopulates the results div with the most recent search results
 $(document).on("click", "#back-to-results", function () {
