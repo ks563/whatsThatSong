@@ -284,9 +284,9 @@ $(document).on("click", ".song", function () {
     //emptying the song results div
     $("#songresults").empty();
     //creating divs for media links
-    var spotifyLink = $("<a id='spotify-link' target='blank'>Spotify</a>");
-    var youtubeLink = $("<a id='youtube-link' target='blank'>Youtube</a>");
-    var mediaLinks = $("<div id='media-links'></div>")
+    var spotifyLink = $("<a id='spotify-link' target='blank'><img src='assets/images/spotify-icon.png' width='48%' class='img-fluid icon' alt='spotifyicon'/></a>");
+    var youtubeLink = $("<a id='spotify-link' target='blank'><img src='assets/images/youtube-icon.png' width='48%' class='img-fluid icon' alt='youtubeicon'/></a>");
+    var mediaLinks = $("<div class='col-3 icons' id='media-links'></div>")
     //for each media object in the song object, find the spotify id and call the spotify api with it 
     for (k = 0; k < songs[ind].mediaArr.length; k++) {
         if (songs[ind].mediaArr[k].provider == "spotify") {
@@ -321,9 +321,9 @@ $(document).on("click", ".savedSong", function () {
     //emptying song results div
     $("#songresults").empty();
     //creating divs for media links
-    var spotifyLink = $("<a id='spotify-link' target='blank'>Spotify</a>");
-    var youtubeLink = $("<a id='youtube-link' target='blank'>Youtube</a>");
-    var mediaLinks = $("<div id='media-links'></div>")
+    var spotifyLink = $("<a id='spotify-link' target='blank'><img src='assets/images/spotify-icon.png' width='48%' class='img-fluid icon' alt='spotifyicon'/></a>");
+    var youtubeLink = $("<a id='spotify-link' target='blank'><img src='assets/images/youtube-icon.png' width='48%' class='img-fluid icon' alt='youtubeicon'/></a>");
+    var mediaLinks = $("<div class='col-3 icons' id='media-links'></div>")
     //for each media object in the song
     for (k = 0; k < songsSaved[ind].mediaArr.length; k++) {
         //find the spotify url
