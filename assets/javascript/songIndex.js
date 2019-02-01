@@ -75,8 +75,6 @@ var signin = function(email, password){
 var signout = function(){
     database.ref("/users/" + userName).child("signedin").set(false);
     firebase.auth().signOut();
-    userName = "";
-    songsSaved = [];
 }
 
 //function that is called when the sign in state is changed
@@ -89,14 +87,14 @@ firebase.auth().onAuthStateChanged(function(userCurr) {
         //setting a variable client side that is equal to the value in the database
         if(userName === ""){
             userName = userCurr.displayName;
+            database.ref("/users/" + userName).child("signedin").set(true);
         }
 
         //getting the value of everything before the @ in the email and removing the periods 
         // userName = userName.substring(0, userName.indexOf("@")).replace(/\./g, "");
         //displaying the button that allows user to view their saved song 
         $("#view-saved").attr("style", "display: visible");
-        database.ref("/users/" + userName).child("signedin").set(true);
-        console.log(userName);
+       
         //when the user is successfully signed in, we can close the modal
         $("#modalRegisterForm").modal("hide");
         $("#modalLoginForm").modal("hide");
@@ -104,10 +102,15 @@ firebase.auth().onAuthStateChanged(function(userCurr) {
         $("#logged-con").attr("style", "display: visible");
         $("#logged-name").text("Welcome " + userName);
     } else {
-      database.ref("/users/" + userName).child("signedin").set(false);
-      $("#log-con").attr("style", "display: visible");
-      $("#logged-con").attr("style", "display: none");
-      songsSaved = [];
+        if(userName !="")
+        {
+            database.ref("/users/" + userName).child("signedin").set(false);
+            songsSaved = [];
+            userName = "";
+        }
+        $("#log-con").attr("style", "display: visible");
+        $("#logged-con").attr("style", "display: none");
+        $("#view-saved").attr("style", "display: none");
     }
   });
 //a database reference that points to the user directory 
@@ -116,7 +119,8 @@ database.ref("/users").on("value", function (snapshot) {
     snapshot.forEach(function (child){
         userNames.push(child.key);
     });
-    if (userName != "") {
+    if (userName != "" && userName != null) {
+        console.log("getting songs for ",userName);
         //a reference to the saved songs array of the signed in user
         var songsSavedRef = snapshot.child(userName).child("songsSaved");
         //for every saved song, add its key value pairs to the client's saved song array
@@ -193,6 +197,7 @@ var resultsToDisplay = function(){
 var savedToDisplay = function(){
     $("#inputLyrics").attr("style","display: none");
     $("#submit").attr("style","display: none");
+    $("#search-and-saved").empty();
     for (j = 0; j < songsSaved.length; j++){
         var songDiv = $("<div class='savedSong' data-ind='"+ j + "'>Artist: " + songsSaved[j].artist + " Song: " + songsSaved[j].title + "</div>");
         console.log(songDiv);
@@ -292,7 +297,7 @@ $(document).on("click","#loginbutton",function(){
 });
 //a button that will save the invoking song
 $(document).on("click","#save-song", function(){
-    saveSong(songs[ind]);
+    saveSong(songs[ind]); 
 });
 //button that allos user to view their saved songs
 $(document).on("click","#view-saved", function(){
