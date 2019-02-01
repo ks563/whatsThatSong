@@ -139,10 +139,13 @@ database.ref("/users").on("value", function (snapshot) {
 var saveSong = function(song){
     //clearing the client's saved song array
     songsSaved = [];
-    // var title = song.title.
+    //directories cannot have certain characters, so they will be removed from the string if necesarry
+    var title = validator(song.title);
+    var artist = validator(song.artist);
     //the new song is given a directory where its key value pairs will be saved (key value pairs come from the aud.io  api call stored in the client earlier)
-    var newSong =database.ref("/users/" + userName).child("songsSaved").child(song.title + "-" + song.artist);
+    var newSong =database.ref("/users/" + userName).child("songsSaved").child(title + "-" + artist);
     newSong.set(song)
+    $("#save-song").attr("style","display: none");
 }
 
 //An array that will be populated by the songs returned from the getSongByLyrics function
@@ -217,8 +220,17 @@ var savedToDisplay = function(){
         $("#search-and-saved").append(songDiv);
     };
 };
+//this function is used to remove any characters that cannot be used in a directory name
 var validator = function(toValid){
-
+    var invalidChars = ".#$[]"
+    var validated;
+    validated = toValid.replace(/\./g, "");
+    validated = validated.replace(/\#/g, "");
+    validated = validated.replace(/\$/g, "S");
+    validated = validated.replace(/\[/g, "");
+    validated = validated.replace(/\]/g, "");
+    console.log("validated string: ",validated);
+    return validated;
 }
 //pulling spotify info with it's api
 var spotifyPull = function(trackID){
@@ -276,6 +288,9 @@ $(document).on("click",".song",function(){
     if (!songs[ind].saved){
         $("#save-song").attr("style","display: visible");
     }
+    else{
+        $("#save-song").attr("style","display: none");
+    }
 });
 //this function performs similarly to the one above, but is called when saved songs are clicked on
 $(document).on("click",".savedSong", function(){
@@ -294,6 +309,7 @@ $(document).on("click",".savedSong", function(){
     var lyricDiv = $("<div class=lyricDiv><h6>Artist: " + songsSaved[ind].artist + "</h6><h6> Song: " + songsSaved[ind].title + "</h6><p>" + songsSaved[ind].lyrics + "</p>");
     $("#songresults").html(lyricDiv);
     $("#save-song").attr("style","display: none");
+    $("#back-to-results").attr("style","display: visible");
 });
 //repopulates the results div with the most recent search results
 $(document).on("click","#back-to-results", function(){
@@ -316,7 +332,8 @@ $(document).on("click","#loginbutton",function(){
 });
 //a button that will save the invoking song
 $(document).on("click","#save-song", function(){
-    saveSong(songs[ind]); 
+    saveSong(songs[ind]);
+    songs[ind].saved = true; 
 });
 //button that allos user to view their saved songs
 $(document).on("click","#view-saved", function(){
