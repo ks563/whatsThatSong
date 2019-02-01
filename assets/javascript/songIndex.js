@@ -216,10 +216,16 @@ var savedToDisplay = function () {
     $("#inputLyrics").attr("style", "display: none");
     $("#submit").attr("style", "display: none");
     $("#search-and-saved").empty();
-    for (j = 0; j < songsSaved.length; j++) {
-        var songDiv = $("<div class='savedSong' data-ind='" + j + "'>Artist: " + songsSaved[j].artist + " Song: " + songsSaved[j].title + "</div>");
-        $("#search-and-saved").append(songDiv);
-    };
+    if(songsSaved.length != 0){
+        for (j = 0; j < songsSaved.length; j++) {
+            var songDiv = $("<div class='savedSong' data-ind='" + j + "'>Artist: " + songsSaved[j].artist + " Song: " + songsSaved[j].title + "</div>");
+            $("#search-and-saved").append(songDiv);
+        };
+    }
+    else{
+        $("#search-and-saved").text("No songs saved!");
+    }
+
 };
 //this function is used to remove any characters that cannot be used in a directory name
 var validator = function (toValid) {
@@ -299,7 +305,7 @@ $(document).on("click", ".song", function () {
     $("#songresults").prepend(mediaLinks);
 
     $("#back-to-results").attr("style", "display: visible");
-    if (!songs[ind].saved) {
+    if (!songs[ind].saved && userName != "") {
         $("#save-song").attr("style", "display: visible");
     }
     else {
