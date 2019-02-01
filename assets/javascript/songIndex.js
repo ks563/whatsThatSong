@@ -216,10 +216,16 @@ var savedToDisplay = function () {
     $("#inputLyrics").attr("style", "display: none");
     $("#submit").attr("style", "display: none");
     $("#search-and-saved").empty();
-    for (j = 0; j < songsSaved.length; j++) {
-        var songDiv = $("<div class='savedSong' data-ind='" + j + "'>Artist: " + songsSaved[j].artist + " Song: " + songsSaved[j].title + "</div>");
-        $("#search-and-saved").append(songDiv);
-    };
+    if(songsSaved.length != 0){
+        for (j = 0; j < songsSaved.length; j++) {
+            var songDiv = $("<div class='savedSong' data-ind='" + j + "'>Artist: " + songsSaved[j].artist + " Song: " + songsSaved[j].title + "</div>");
+            $("#search-and-saved").append(songDiv);
+        };
+    }
+    else{
+        $("#search-and-saved").text("No songs saved!");
+    }
+
 };
 //this function is used to remove any characters that cannot be used in a directory name
 var validator = function (toValid) {
@@ -278,9 +284,9 @@ $(document).on("click", ".song", function () {
     //emptying the song results div
     $("#songresults").empty();
     //creating divs for media links
-    var spotifyLink = $("<a id='spotify-link' target='blank'>Spotify</a>");
-    var youtubeLink = $("<a id='youtube-link' target='blank'>Youtube</a>");
-    var mediaLinks = $("<div id='media-links'></div>")
+    var spotifyLink = $("<a id='spotify-link' target='blank'><img src='assets/images/spotify-icon.png' width='48%' class='img-fluid icon' alt='spotifyicon'/></a>");
+    var youtubeLink = $("<a id='spotify-link' target='blank'><img src='assets/images/youtube-icon.png' width='48%' class='img-fluid icon' alt='youtubeicon'/></a>");
+    var mediaLinks = $("<div class='col-3 icons' id='media-links'></div>")
     //for each media object in the song object, find the spotify id and call the spotify api with it 
     for (k = 0; k < songs[ind].mediaArr.length; k++) {
         if (songs[ind].mediaArr[k].provider == "spotify") {
@@ -299,7 +305,7 @@ $(document).on("click", ".song", function () {
     $("#songresults").prepend(mediaLinks);
 
     $("#back-to-results").attr("style", "display: visible");
-    if (!songs[ind].saved) {
+    if (!songs[ind].saved && userName != "") {
         $("#save-song").attr("style", "display: visible");
     }
     else {
@@ -315,9 +321,9 @@ $(document).on("click", ".savedSong", function () {
     //emptying song results div
     $("#songresults").empty();
     //creating divs for media links
-    var spotifyLink = $("<a id='spotify-link' target='blank'>Spotify</a>");
-    var youtubeLink = $("<a id='youtube-link' target='blank'>Youtube</a>");
-    var mediaLinks = $("<div id='media-links'></div>")
+    var spotifyLink = $("<a id='spotify-link' target='blank'><img src='assets/images/spotify-icon.png' width='48%' class='img-fluid icon' alt='spotifyicon'/></a>");
+    var youtubeLink = $("<a id='spotify-link' target='blank'><img src='assets/images/youtube-icon.png' width='48%' class='img-fluid icon' alt='youtubeicon'/></a>");
+    var mediaLinks = $("<div class='col-3 icons' id='media-links'></div>")
     //for each media object in the song
     for (k = 0; k < songsSaved[ind].mediaArr.length; k++) {
         //find the spotify url

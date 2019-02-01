@@ -95,6 +95,12 @@ body{
 .queryFound {
     background-color: #c9faa5;
 }
+.icons{
+    padding-left: 0;
+}
+.icon{
+    margin-right: 2%;
+}
 
 .footer {
     font-size: 1em;
