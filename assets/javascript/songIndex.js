@@ -75,6 +75,7 @@ var signin = function (email, password) {
 var signout = function () {
     database.ref("/users/" + userName).child("signedin").set(false);
     firebase.auth().signOut();
+    location.reload();
 }
 
 //function that is called when the sign in state is changed
@@ -160,6 +161,7 @@ var getSongByLyrics = function (query) {
         songs = [];
         console.log(response);
         //Grabbing 5 songs from the api call
+        $("#loading-songs").hide();
         for (i = 0; i < 5; i++) {
             //assigning a song object with the keys
             var song = { artist: "", title: "", lyrics: "", lyricsHighlight: "", mediaArr: [], spotify: null, itunes: null, saved: false };
@@ -255,6 +257,10 @@ var spotifyPull = function (trackID) {
 }
 //a function that is called to submit the lyric sample to the ajax call 
 $(document).on("click", "#submit", function (event) {
+    $("#songresults").empty();
+    $("#loading-songs").show();
+    $("#back-to-results").attr("style", "display: none");
+    $("#save-song").attr("style", "display: none");
     event.preventDefault();
     var lyricSample = $("#inputLyrics").val();
     console.log(lyricSample);
