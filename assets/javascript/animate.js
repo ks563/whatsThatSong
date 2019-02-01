@@ -18,4 +18,4 @@ $("#submit").click(function(){
   
 $("#submit").click(function(){
     $(".results-container").show();
-});
+}); 
