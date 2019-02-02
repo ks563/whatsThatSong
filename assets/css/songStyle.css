@@ -4,7 +4,7 @@ body{
 }
 .header-container{
     font-family: 'Monoton', cursive;
-    font-size:7em;
+    font-size:6.5em;
     color: #fef7ed;
     text-align:center;
     padding-top: 2.5%;
@@ -110,7 +110,7 @@ body{
 @media (min-width: 200px) and (max-width: 767.98px) {
 
     .header-container{
-        font-size:3em;
+        font-size:2.75em;
     }
 
     .search-container{
@@ -125,7 +125,7 @@ body{
 
 @media (min-width:768px) and (max-width: 1199.98px) {
     .header-container{
-       font-size:5em;
+       font-size:4em;
    }
 }
 
