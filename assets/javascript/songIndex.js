@@ -147,13 +147,16 @@ var saveSong = function (song) {
     newSong.set(song)
     $("#save-song").attr("style", "display: none");
 }
-
+//this function will remove a song from the database
 var unSaveSong = function (song) {
+    //get the title and artist of the invoking song so it can be removed from the database by it's key
     var title = validator(song.title);
     var artist = validator(song.artist);
-
+    //get the database reference
     var removeSong = database.ref("/users/" + userName).child("songsSaved").child(title + "-" + artist);
+    //remove the reference
     removeSong.remove();
+    //update the display
     savedToDisplay();
 }
 
@@ -226,9 +229,13 @@ var savedToDisplay = function () {
     $("#inputLyrics").attr("style", "display: none");
     $("#submit").attr("style", "display: none");
     $("#saved-table > tbody").empty();
+    //if there are any saved songs
     if(songsSaved.length != 0){
+        //for each saved song
         for (j = 0; j < songsSaved.length; j++) {
+            //give the song a row
             var songRow = $("<tr class='savedSong' data-ind='" + j + "'></tr>")
+            //append a cell with relevant information to the song row
             songRow.append("<td>" +  songsSaved[j].artist + "</td>");
             songRow.append("<td>" +  songsSaved[j].title + "</td>");
             if (songsSaved[j].spotify){
@@ -244,10 +251,13 @@ var savedToDisplay = function () {
             else{
                 songRow.append("<td>" +  "no" + "</td>")
             }
+            //append the remove button
             songRow.append("<td class='remove-song' data-ind='" + j + "'><img class='img-fluid removesong-icon' src='assets/images/removesong-icon.png' alt='removesong-icon'></td>");
+            //append the row to the table
             $("#saved-table > tbody").append(songRow);
         };
     }
+    //there are no saved songs
     else{
         $("#saved-table > tbody").text("No songs saved!");
     }
