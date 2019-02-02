@@ -148,6 +148,15 @@ var saveSong = function (song) {
     $("#save-song").attr("style", "display: none");
 }
 
+var unSaveSong = function (song) {
+    var title = validator(song.title);
+    var artist = validator(song.artist);
+
+    var removeSong = database.ref("/users/" + userName).child("songsSaved").child(title + "-" + artist);
+    removeSong.remove();
+    savedToDisplay();
+}
+
 //An array that will be populated by the songs returned from the getSongByLyrics function
 var songs = [];
 
@@ -213,17 +222,34 @@ var resultsToDisplay = function () {
 }
 //a function that will display the logged in user's saved songs
 var savedToDisplay = function () {
+    $("#search-and-saved").attr("style","display: visible");
     $("#inputLyrics").attr("style", "display: none");
     $("#submit").attr("style", "display: none");
-    $("#search-and-saved").empty();
+    $("#saved-table > tbody").empty();
     if(songsSaved.length != 0){
         for (j = 0; j < songsSaved.length; j++) {
-            var songDiv = $("<div class='savedSong' data-ind='" + j + "'>Artist: " + songsSaved[j].artist + " Song: " + songsSaved[j].title + "</div>");
-            $("#search-and-saved").append(songDiv);
+            var songRow = $("<tr class='savedSong' data-ind='" + j + "'></tr>")
+            songRow.append("<td>" +  songsSaved[j].artist + "</td>");
+            songRow.append("<td>" +  songsSaved[j].title + "</td>");
+            if (songsSaved[j].spotify){
+                songRow.append("<td>" +  "yes" + "</td>");
+            }
+            else{
+                songRow.append("<td>" +  "no" + "</td>")
+            }
+
+            if (songsSaved[j].youtube){
+                songRow.append("<td>" +  "yes" + "</td>");
+            }
+            else{
+                songRow.append("<td>" +  "no" + "</td>")
+            }
+            songRow.append("<td class='remove-song' data-ind='" + j + "'><img class='img-fluid removesong-icon' src='assets/images/removesong-icon.png' alt='removesong-icon'></td>");
+            $("#saved-table > tbody").append(songRow);
         };
     }
     else{
-        $("#search-and-saved").text("No songs saved!");
+        $("#saved-table > tbody").text("No songs saved!");
     }
 
 };
@@ -292,10 +318,12 @@ $(document).on("click", ".song", function () {
         if (songs[ind].mediaArr[k].provider == "spotify") {
             spotifyLink.attr("href", songs[ind].mediaArr[k].url);
             mediaLinks.append(spotifyLink);
+            songs[ind].spotify = true;
         }
         if (songs[ind].mediaArr[k].provider == "youtube") {
             youtubeLink.attr("href", songs[ind].mediaArr[k].url);
             mediaLinks.append(youtubeLink);
+            songs[ind].youtube = true;
         }
     }
     //append the results to the dom
@@ -316,6 +344,7 @@ $(document).on("click", ".song", function () {
 $(document).on("click", ".savedSong", function () {
     $(".results-container").show();
     $(".record-container").hide();
+    $("#loading-songs").hide();
     $("#view-saved").attr("style", "display: none");
     ind = $(this).attr("data-ind");
     //emptying song results div
@@ -376,7 +405,8 @@ $(document).on("click", "#view-saved", function () {
 });
 //button that allows user to return to search after looking at their saved songs
 $(document).on("click", "#back-to-search", function () {
-    $("#search-and-saved").empty();
+    $("#saved-table > tbody").empty();
+    $("#search-and-saved").attr("style", "display: none");
     $("#inputLyrics").attr("style", "display: visible");
     $("#submit").attr("style", "display: visible");
     $("#view-saved").attr("style", "display: visible");
@@ -385,4 +415,9 @@ $(document).on("click", "#back-to-search", function () {
 //a button that allows users to sign out of their account
 $(document).on("click", "#logout", function () {
     signout()
+})
+$(document).on("click", ".remove-song", function(){
+    ind = $(this).attr("data-ind");
+    console.log(ind, " ", songsSaved[ind]);
+    unSaveSong(songsSaved[ind]);
 })

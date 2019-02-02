@@ -10,7 +10,26 @@ body{
     padding-top: 2.5%;
     padding-bottom:2.5%;    
 }
-
+/* scrolling table found on stack overflow */
+tr {
+    width: 100%;
+    display: inline-table;
+    table-layout: fixed;
+    }
+    
+table{
+    height:300px;            
+    display: -moz-groupbox;    
+}
+tbody{
+    overflow-y: scroll;      
+    height: 200px;            
+    width: 100%;
+    position: absolute;
+}
+.removesong-icon{
+    height: 20px;
+}
 .signup-err{
     color: rgb(255, 88, 88);
 }
