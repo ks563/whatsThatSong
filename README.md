@@ -23,7 +23,7 @@ media: "[{"provider":"youtube","start":0,"type":"video","url":"http:\/\/www.yout
 title: "Oops!... I Did It Again"
 }
 ```
-Sometimes the media propetry cannot be properly parsed into a JSON object in which case the user will not be presented with links to Youtube and Spotify. 
+Sometimes the media property cannot be properly parsed into a JSON object in which case the user will not be presented with links to Youtube and Spotify. 
 ### Firebase
 Firebase is utilzed to allow users to make an account so that they can save songs to be viewed again later. This project utilizes the *Auth()* method of firebase to create and sign in users. Upon succesfully creating an account, users will be given a directory associated with their username in our database. The songs the user choses to save will be stored in a directory called songsSaved.
 
