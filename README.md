@@ -35,7 +35,7 @@ The saved songs are brought into the client side and stored in an array whenever
 ### jQuery
 The jQuery library is utilized for capturing user input, and DOM manipulation. Most of the functionality of this app is powered by jQuery event listeners that call the relevant functions when certain elements are clicked. 
 ### Javascript
-Native javascript is used to store necessarry data on the client side. This project utilizes arrays and objects to store data from the Audd.io API and Firebase. Below is a brief description of the functions. For a more detailed explaination of each function read the comments in the source code.
+Native javascript is used to store necessary data on the client side. This project utilizes arrays and objects to store data from the Audd.io API and Firebase. Below is a brief description of the functions. For a more detailed explaination of each function read the comments in the source code.
 * **signup(email, password, disName)** - this fucntion takes three arguments and attempts to use Firebase.Auth() to create a user account with the given credentials
 * **signin(email, password)** - this function takes the given credentials and attempts to sign a user in 
 * **signout()** - this function signs a user out and refreshes the page
